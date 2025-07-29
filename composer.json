@@ -1,0 +1,25 @@
+{
+    "name": "julian/api-basic-slim",
+    "description": "Una API basica de Slim",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JUlianCVM",
+            "email": "111820807+JulianCVM@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.7",
+        "illuminate/database": "^12.21",
+        "vlucas/phpdotenv": "^5.6",
+        "php-di/php-di": "^7.0",
+        "respect/validation": "^2.4"
+    }
+}
