@@ -125,7 +125,7 @@ CREATE TABLE `variedad` (
     `historia` BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (`imagen`) REFERENCES `imagenes` (`id`),
     FOREIGN KEY (`porte`) REFERENCES `porte` (`id`),
-    FOREIGN KEY (`tamahoo_del_grano`) REFERENCES `tamanho_grano` (`id`),
+    FOREIGN KEY (`tamanho_del_grano`) REFERENCES `tamanho_grano` (`id`),
     FOREIGN KEY (`potencial_de_rendimiento`) REFERENCES `potencial_de_rendimiento` (`id`),
     FOREIGN KEY (`calidad_grano_altitud`) REFERENCES `calidad_altitud` (`id`),
     FOREIGN KEY (`resistencia`) REFERENCES `resistencias` (`id`),
