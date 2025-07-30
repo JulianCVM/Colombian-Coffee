@@ -2,7 +2,6 @@
 
 namespace App\Infraestructure\Database;
 
-use Error;
 use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
