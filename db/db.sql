@@ -134,3 +134,499 @@ CREATE TABLE variedad (
 );
 
 SELECT 'Base de datos con forma de pulpo' as mensaje;
+
+-- FALTA IMPLEMENTAR LAS IMAGENES
+INSERT INTO
+    imagenes (nombre, contenido)
+VALUES ('tipica.jpg', 'example'),
+    ('borbon.jpg', 'example'),
+    ('caturra.jpg', 'example'),
+    (
+        'variedad_colombia.jpg',
+        'example'
+    ),
+    ('maragogipe.jpg', 'example'),
+    ('tabi.jpg', 'example');
+
+INSERT INTO
+    historia_linaje (obtenor, familia, grupo)
+VALUES (
+        'Misioneros Jesuitas',
+        'Arábica',
+        'Variedad Antigua'
+    ),
+    (
+        'Federación Nacional de Cafeteros',
+        'Arábica',
+        'Variedad Mejorada'
+    ),
+    (
+        'Investigación Cenicafé',
+        'Arábica',
+        'Híbrido Resistente'
+    ),
+    (
+        'Productores Tradicionales',
+        'Arábica',
+        'Variedad Antigua'
+    ),
+    (
+        'Investigación Cenicafé',
+        'Arábica',
+        'Híbrido Mejorado'
+    ),
+    (
+        'Investigación Internacional',
+        'Arábica',
+        'Híbrido Experimental'
+    );
+
+INSERT INTO
+    ubicacion (
+        departamento,
+        clima,
+        suelo,
+        altitud,
+        temperatura,
+        practica_cultivo
+    )
+VALUES (
+        'Antioquia',
+        'Templado húmedo',
+        'Volcánico fértil',
+        '1.300 - 1.800 msnm',
+        '18 - 22 °C',
+        'Sombra parcial y fertilización orgánica'
+    ),
+    (
+        'Caldas',
+        'Templado húmedo',
+        'Franco-arenoso',
+        '1.200 - 1.900 msnm',
+        '17 - 21 °C',
+        'Siembra en curvas de nivel'
+    ),
+    (
+        'Huila',
+        'Templado seco',
+        'Franco-arcilloso',
+        '1.200 - 2.000 msnm',
+        '17 - 23 °C',
+        'Riego controlado y podas técnicas'
+    ),
+    (
+        'Tolima',
+        'Templado húmedo',
+        'Volcánico profundo',
+        '1.300 - 1.900 msnm',
+        '18 - 22 °C',
+        'Manejo de sombra y control fitosanitario'
+    ),
+    (
+        'Nariño',
+        'Frío moderado',
+        'Volcánico con alto contenido de materia orgánica',
+        '1.800 - 2.300 msnm',
+        '16 - 20 °C',
+        'Siembra asociada con leguminosas'
+    ),
+    (
+        'Quindío',
+        'Templado húmedo',
+        'Franco-limoso',
+        '1.200 - 1.800 msnm',
+        '18 - 22 °C',
+        'Renovación periódica de cafetales'
+    );
+
+INSERT INTO
+    tamanho_grano (tamanho)
+VALUES ('Pequeño'),
+    ('Mediano'),
+    ('Grande'),
+    ('Supremo'),
+    ('Excelso');
+
+INSERT INTO
+    porte (porte, manejo_cultivo)
+VALUES (
+        'Alto',
+        'Requiere mayor espaciamiento y podas periódicas para controlar la altura'
+    ),
+    (
+        'Intermedio',
+        'Manejo balanceado de podas y fertilización, densidad de siembra media'
+    ),
+    (
+        'Bajo',
+        'Permite mayor densidad de siembra, fácil recolección y menor necesidad de poda'
+    );
+
+INSERT INTO
+    condiciones (
+        genetica,
+        clima,
+        suelo,
+        practicas_cultivo,
+        temperatura
+    )
+VALUES (
+        'Arábica tradicional',
+        'Templado húmedo',
+        'Andisoles volcánicos',
+        'Sombra parcial, fertilización orgánica',
+        '18-22 °C'
+    ),
+    (
+        'Arábica mejorada',
+        'Templado seco',
+        'Franco-arcilloso',
+        'Podas de renovación y control fitosanitario',
+        '17-23 °C'
+    ),
+    (
+        'Híbrido resistente',
+        'Templado húmedo',
+        'Volcánico profundo',
+        'Manejo integrado de plagas y densidad media',
+        '17-22 °C'
+    ),
+    (
+        'Arábica de altura',
+        'Frío moderado',
+        'Andisoles ricos en materia orgánica',
+        'Siembra asociada con árboles de sombra',
+        '16-20 °C'
+    ),
+    (
+        'Híbrido experimental',
+        'Templado húmedo',
+        'Franco-limoso',
+        'Alta densidad y fertilización balanceada',
+        '18-22 °C'
+    );
+
+INSERT INTO
+    enfermedades (
+        nombre,
+        efectos,
+        gravedad,
+        tratamiento
+    )
+VALUES (
+        'Roya del café (Hemileia vastatrix)',
+        'Defoliación prematura, disminución de fotosíntesis y reducción de la producción',
+        'Alta',
+        'Uso de variedades resistentes, fungicidas preventivos y manejo de sombra'
+    ),
+    (
+        'Antracnosis (Colletotrichum spp.)',
+        'Manchas en hojas y frutos, caída prematura de cerezas',
+        'Media',
+        'Poda sanitaria, control de humedad y fungicidas selectivos'
+    ),
+    (
+        'Nematodos (Meloidogyne spp.)',
+        'Daños en raíces, debilitamiento general de la planta, menor absorción de nutrientes',
+        'Alta',
+        'Uso de portainjertos resistentes, rotación de cultivos y nematicidas biológicos'
+    ),
+    (
+        'Broca del café (Hypothenemus hampei)',
+        'Perforación de granos, pérdida de calidad y peso',
+        'Alta',
+        'Recolección oportuna, control biológico con Beauveria bassiana y trampas'
+    ),
+    (
+        'Ojo de gallo (Mycena citricolor)',
+        'Manchas circulares en hojas y caída prematura',
+        'Media',
+        'Manejo de sombra y aplicación de fungicidas específicos'
+    );
+
+-- CUANTAS PLANTAS SE PUEDEN SEMBRRAR POR HECTAREA
+-- SE DA UN EJEMPLO DE NOMBRES PARA TENER UNA IDEA
+INSERT INTO
+    densidad (
+        porte,
+        tamanho_grano,
+        valor_densidad
+    )
+VALUES (1, 3, 4000), -- Porte alto, grano grande: menor densidad de siembra
+    (1, 5, 3800), -- Porte alto, grano excelso
+    (2, 2, 5000), -- Porte intermedio, grano mediano: densidad media
+    (2, 5, 4800), -- Porte intermedio, grano excelso
+    (3, 1, 6000), -- Porte bajo, grano pequeño: alta densidad
+    (3, 4, 5800);
+-- Porte bajo, grano supremo
+
+-- NIVEL DE PRODUCTIVIDAD QUE PUEDE ALCANZAR UNA VARIEDAD DE CAFE, CONSIDERANDO LAS CONDICIONES
+INSERT INTO
+    potencial_de_rendimiento (potencial, condicion)
+VALUES ('Bajo', 1), -- Arábica tradicional
+    ('Medio', 2), -- Arábica mejorada
+    ('Alto', 3), -- Híbrido resistente
+    ('Medio-Alto', 4), -- Arábica de altura
+    ('Excepcional', 5);
+-- Híbrido experimental
+
+INSERT INTO
+    calidad_grano (
+        calidad,
+        aroma,
+        sabor,
+        densidad,
+        humedad,
+        tueste,
+        origen
+    )
+VALUES (
+        'Alta',
+        'Floral y dulce',
+        'Balanceado con acidez media',
+        2,
+        '11%',
+        'Medio',
+        1
+    ), -- Antioquia
+    (
+        'Alta',
+        'Chocolate y nuez',
+        'Cuerpo medio y dulce',
+        4,
+        '11%',
+        'Medio',
+        2
+    ), -- Caldas
+    (
+        'Especial',
+        'Frutal y floral',
+        'Acidez brillante, final prolongado',
+        5,
+        '10.5%',
+        'Medio-Claro',
+        3
+    ), -- Huila
+    (
+        'Media',
+        'Cítrico suave',
+        'Ligero y balanceado',
+        3,
+        '11%',
+        'Medio',
+        4
+    ), -- Tolima
+    (
+        'Especial',
+        'Floral intenso',
+        'Acidez alta y brillante',
+        6,
+        '10%',
+        'Claro',
+        5
+    ), -- Nariño
+    (
+        'Alta',
+        'Caramelo y panela',
+        'Cuerpo cremoso y dulce',
+        1,
+        '11%',
+        'Medio-Oscuro',
+        6
+    );
+-- Quindío
+
+-- MIENTRAS MÁS ALTA LA ALTITUD, GENERALMENTE MEJOR ES LA CALIDAD EN TAZA.
+INSERT INTO
+    calidad_altitud (ubicacion, calidad)
+VALUES (
+        1,
+        'Alta, altitudes entre 1.400-1.800 msnm producen cafés balanceados'
+    ), -- Antioquia
+    (
+        2,
+        'Alta, altitudes entre 1.300-1.700 msnm aportan cuerpo y dulzor'
+    ), -- Caldas
+    (
+        3,
+        'Especial, altitudes entre 1.500-2.000 msnm dan acidez brillante'
+    ), -- Huila
+    (
+        4,
+        'Alta, altitudes entre 1.400-1.900 msnm generan notas cítricas'
+    ), -- Tolima
+    (
+        5,
+        'Especial, altitudes superiores a 1.800 msnm dan cafés complejos'
+    ), -- Nariño
+    (
+        6,
+        'Alta, altitudes entre 1.300-1.800 msnm con buen balance aromático'
+    );
+-- Quindío
+
+-- RESISTENCIA DE UNA VARIEDAD A UNA ENFERMEDAD ESPECÍFICA
+INSERT INTO
+    resistencias (
+        tipo,
+        calidad_grano,
+        enfermedad
+    )
+VALUES ('Susceptible', 1, 1), -- Antioquia, calidad alta, Roya
+    ('Tolerante', 2, 2), -- Caldas, Antracnosis
+    ('Resistente', 3, 1), -- Huila, Roya
+    ('Resistente', 3, 3), -- Huila, Nematodos
+    ('Tolerante', 4, 4), -- Tolima, Broca
+    ('Susceptible', 5, 5), -- Nariño, Ojo de gallo
+    ('Resistente', 6, 1), -- Quindío, Roya
+    ('Tolerante', 6, 2);
+-- Quindío, Antracnosis
+
+-- CONTIENE INFORMACIÓN GENERAL SOBRE EL MANEJO AGRONÓMICO DE CADA VARIEDAD O GRUPO DE CAFÉ
+INSERT INTO
+    datos_agronomicos (
+        tiempo_cosecha,
+        maduracion,
+        nutricion,
+        densidad_de_siembra
+    )
+VALUES (
+        '2 cosechas principales al año',
+        'Lenta',
+        'Fertilización orgánica y abonos verdes',
+        1
+    ), -- Porte alto
+    (
+        '2 cosechas y mitaca',
+        'Media',
+        'Fertilización química balanceada',
+        2
+    ), -- Porte alto, excelso
+    (
+        'Cosecha continua con picos',
+        'Media',
+        'Manejo integrado de nutrientes',
+        3
+    ), -- Porte intermedio
+    (
+        'Cosecha principal y recolectas adicionales',
+        'Rápida',
+        'Fertilización orgánica',
+        4
+    ), -- Porte intermedio, excelso
+    (
+        '2 cosechas al año con picos definidos',
+        'Lenta',
+        'Fertilización intensiva',
+        5
+    ), -- Porte bajo
+    (
+        'Cosecha escalonada',
+        'Media',
+        'Abonos orgánicos y minerales',
+        6
+    );
+-- Porte bajo, supremo
+
+-- IMPORTANTE !!!!!!!!
+-- VARIEDAD DE CAFÉ CON TODA SU INFORMACIÓN
+--
+INSERT INTO
+    variedad (
+        nombre_comun,
+        nombre_cientifico,
+        imagen,
+        descripcion_general,
+        porte,
+        tamanho_del_grano,
+        altitud_optima_siembra,
+        potencial_de_rendimiento,
+        calidad_grano_altitud,
+        resistencia,
+        datos_agronomicos,
+        historia
+    )
+VALUES (
+        'Típica',
+        'Coffea arabica var. typica',
+        1,
+        'Una de las primeras variedades cultivadas en Colombia, apreciada por su taza suave y aromática.',
+        1,
+        5,
+        1700.00,
+        1,
+        1,
+        1,
+        1,
+        1
+    ),
+    (
+        'Borbón',
+        'Coffea arabica var. bourbon',
+        2,
+        'Variedad antigua conocida por su dulzor y balance, requiere buen manejo por su susceptibilidad a enfermedades.',
+        1,
+        4,
+        1600.00,
+        2,
+        2,
+        2,
+        2,
+        2
+    ),
+    (
+        'Caturra',
+        'Coffea arabica var. caturra',
+        3,
+        'Mutación natural de Borbón, porte bajo e ideal para mayor densidad de siembra.',
+        3,
+        2,
+        1500.00,
+        3,
+        3,
+        3,
+        3,
+        3
+    ),
+    (
+        'Variedad Colombia',
+        'Coffea arabica var. colombia',
+        4,
+        'Desarrollada por Cenicafé, combina alta productividad con resistencia a la roya.',
+        2,
+        5,
+        1700.00,
+        3,
+        4,
+        4,
+        4,
+        4
+    ),
+    (
+        'Maragogipe',
+        'Coffea arabica var. maragogipe',
+        5,
+        'Conocida como el grano gigante, tiene porte alto y baja densidad de siembra.',
+        1,
+        3,
+        1400.00,
+        1,
+        5,
+        5,
+        5,
+        5
+    ),
+    (
+        'Tabi',
+        'Coffea arabica var. tabi',
+        6,
+        'Híbrido de Borbón, Típica y Híbrido de Timor; combina calidad de taza con resistencia.',
+        2,
+        4,
+        1700.00,
+        5,
+        6,
+        6,
+        6,
+        6
+    );
