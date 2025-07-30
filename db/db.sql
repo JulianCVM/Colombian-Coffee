@@ -466,21 +466,43 @@ VALUES (
 -- Quindío
 
 -- RESISTENCIA DE UNA VARIEDAD A UNA ENFERMEDAD ESPECÍFICA
-INSERT INTO
-    resistencias (
-        tipo,
-        calidad_grano,
-        enfermedad
-    )
-VALUES ('Susceptible', 1, 1), -- Antioquia, calidad alta, Roya
-    ('Tolerante', 2, 2), -- Caldas, Antracnosis
-    ('Resistente', 3, 1), -- Huila, Roya
-    ('Resistente', 3, 3), -- Huila, Nematodos
-    ('Tolerante', 4, 4), -- Tolima, Broca
-    ('Susceptible', 5, 5), -- Nariño, Ojo de gallo
-    ('Resistente', 6, 1), -- Quindío, Roya
-    ('Tolerante', 6, 2);
--- Quindío, Antracnosis
+-- 30 registros en total (6 calidades_grano × 5 enfermedades)
+INSERT INTO resistencias (tipo, calidad_grano, enfermedad) VALUES
+('Susceptible', 1, 1), -- Antioquia // -- Enfermedad 1: Roya del café
+('Tolerante', 2, 1),   -- Caldas
+('Resistente', 3, 1),  -- Huila
+('Tolerante', 4, 1),   -- Tolima
+('Resistente', 5, 1),  -- Nariño
+('Resistente', 6, 1),  -- Quindío
+
+('Tolerante', 1, 2),   -- Antioquia // -- Enfermedad 2: Antracnosis
+('Resistente', 2, 2),  -- Caldas
+('Susceptible', 3, 2), -- Huila
+('Tolerante', 4, 2),   -- Tolima
+('Resistente', 5, 2),  -- Nariño
+('Tolerante', 6, 2),   -- Quindío
+
+('Susceptible', 1, 3), -- Antioquia  // -- Enfermedad 3: Nematodos
+('Tolerante', 2, 3),   -- Caldas
+('Resistente', 3, 3),  -- Huila
+('Susceptible', 4, 3), -- Tolima
+('Tolerante', 5, 3),   -- Nariño
+('Resistente', 6, 3),  -- Quindío
+
+('Tolerante', 1, 4),   -- Antioquia // -- Enfermedad 4: Broca
+('Resistente', 2, 4),  -- Caldas
+('Tolerante', 3, 4),   -- Huila
+('Resistente', 4, 4),  -- Tolima
+('Susceptible', 5, 4), -- Nariño
+('Tolerante', 6, 4),   -- Quindío
+
+('Susceptible', 1, 5), -- Antioquia // -- Enfermedad 5: Ojo de gallo
+
+('Tolerante', 2, 5),   -- Caldas
+('Resistente', 3, 5),  -- Huila
+('Tolerante', 4, 5),   -- Tolima
+('Resistente', 5, 5),  -- Nariño
+('Susceptible', 6, 5); -- Quindío
 
 -- CONTIENE INFORMACIÓN GENERAL SOBRE EL MANEJO AGRONÓMICO DE CADA VARIEDAD O GRUPO DE CAFÉ
 INSERT INTO
@@ -630,3 +652,24 @@ VALUES (
         6,
         6
     );
+
+
+    -- TABLA USUARIOS 
+    CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol ENUM('admin', 'user') DEFAULT 'user',
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- password: 123456
+INSERT INTO usuarios (nombre, email, password, rol) VALUES
+('Admin', 'admin@coffee.com', 
+'$2y$10$J82v8QU4gMn7oOykYhjceOBV9UZ6q1d6MTN0aM5XvXkjxNq1EYB7a', 
+'admin'),
+
+('Usuario', 'user@coffee.com', 
+'$2y$10$J82v8QU4gMn7oOykYhjceOBV9UZ6q1d6MTN0aM5XvXkjxNq1EYB7a', 
+'user');
