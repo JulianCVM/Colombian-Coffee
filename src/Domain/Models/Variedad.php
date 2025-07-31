@@ -3,6 +3,7 @@
 namespace App\Domain\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 // La clase Variedad viene siendo el modelo del cual se define que logica se va a manejar para la tabla variedad
 class Variedad extends Model
@@ -22,6 +23,71 @@ class Variedad extends Model
         'calidad_grano_altitud',
         'resistencia',
         'datos_agronomicos',
-        'historia'
+        'historia',
     ];
+
+
+    // --- Relaciones directas (FK) ---
+
+    public function porte(): BelongsTo
+    {
+        return $this->belongsTo(Porte::class, 'porte');
+    }
+
+    public function tamanhoGrano(): BelongsTo
+    {
+        return $this->belongsTo(TamanhoGrano::class, 'tamanho_del_grano');
+    }
+
+    public function potencial(): BelongsTo
+    {
+        return $this->belongsTo(PotencialDeRendimiento::class, 'potencial_de_rendimiento');
+    }
+
+    public function calidadAltitud(): BelongsTo
+    {
+        return $this->belongsTo(CalidadAltitud::class, 'calidad_grano_altitud');
+    }
+
+    public function resistencia(): BelongsTo
+    {
+        return $this->belongsTo(Resistencia::class, 'resistencia');
+    }
+
+    public function datosAgronomicos(): BelongsTo
+    {
+        return $this->belongsTo(DatosAgronomicos::class, 'datos_agronomicos');
+    }
+
+    public function historia(): BelongsTo
+    {
+        return $this->belongsTo(HistoriaLinaje::class, 'historia');
+    }
+
+    // --- Relaciones a través de otras tablas (nested) ---
+
+    public function condiciones()
+    {
+        return $this->potencial?->condicion();
+    }
+
+    public function ubicacion()
+    {
+        return $this->calidadAltitud?->ubicacion();
+    }
+
+    public function calidadGrano()
+    {
+        return $this->resistencia?->calidadGrano();
+    }
+
+    public function enfermedad()
+    {
+        return $this->resistencia?->enfermedad();
+    }
+
+    public function densidad()
+    {
+        return $this->datosAgronomicos?->densidad();
+    }
 }

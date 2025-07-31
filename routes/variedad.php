@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\VariedadController;
+use App\Controllers\VariedadGlobalController;
 use Slim\App;
 
 // Enrutador para manejar los endpoints de variedad
@@ -12,5 +13,8 @@ return function (App $app) {
         $group->get('', [VariedadController::class, 'index']);
         // Se implementa la ruta 'store' con la cual se van a crear variedades
         $group->post('', [VariedadController::class, 'store']);
+
+        // implementacion para traer todo
+        $group->get('/all', [VariedadGlobalController::class, 'index']);
     });
 };
