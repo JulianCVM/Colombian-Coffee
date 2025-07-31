@@ -10,5 +10,7 @@ return function (App $app) {
     $app->group('/variedad', function ($group) {
         // Se implementa la primer ruta que hace referencia a 'index' el cual trae toda la data de variedad
         $group->get('', [VariedadController::class, 'index']);
+        // Se implementa la ruta 'store' con la cual se van a crear variedades
+        $group->post('', [VariedadController::class, 'store']);
     });
 };
