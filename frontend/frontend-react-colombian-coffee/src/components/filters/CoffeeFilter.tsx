@@ -1,5 +1,5 @@
 
-
+import './Filter.css';
 import React, { useEffect, useState } from 'react';
 
 // Se define un tipo para las opciones del filtro (los parametros)
@@ -26,7 +26,7 @@ const FilterPanel = () => {
   }, []);
  
   // yo por que decidi que era buena idea utilizar typescript?
-  // para sacar los datos necesitamos el tipo (se relaciona a las tablas 'porte', tama;o, etc)
+  // para sacar los datos necesitamos el tipo (se relaciona a las tablas 'porte', tamaño, etc)
   // y se utiliza el setter debido al tipo de dato que definimos arriba
   const fetchOptions = async (tipo: string, setter: (opts: Option[]) => void) => {
     const res = await fetch(`/api/filtros.php?tipo=${tipo}`);
