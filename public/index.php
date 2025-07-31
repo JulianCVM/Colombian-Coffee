@@ -5,6 +5,7 @@ use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
+use App\Middleware\JsonBodyParserMiddleware;
 
 // Este apartado implementa los middlewares que se van a usar en la API
 
@@ -15,4 +16,7 @@ return function (App $app) {
         $response = $han->handle($req);
         return $response->withHeader('Content-Type', 'application/json');
     });
+
+    // implementacion del middleware
+    $app->add(new JsonBodyParserMiddleware);
 };
