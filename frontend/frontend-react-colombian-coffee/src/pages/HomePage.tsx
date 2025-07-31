@@ -1,4 +1,6 @@
 import '../styles/HomePage.css';
+import CoffeeFilter from '../components/filters/CoffeeFilter';
+
 
 function HomePage() {
     return (
@@ -9,6 +11,7 @@ function HomePage() {
                 <p className="header-text">Catalogo de Variedades de Cafe en Colombia</p>
             </div>
             <div className="content-home">
+                <CoffeeFilter />
                 
             </div>
         </div>
