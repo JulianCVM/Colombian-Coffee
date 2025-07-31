@@ -1,0 +1,19 @@
+.body-container {
+    background-color: #f9fcf0;
+}
+
+.header-home {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100px;
+    background-color: #f8f9fa;
+    gap: 10px;
+    flex-direction: column;
+    ;
+}
+
+.header-title {
+    font-size: 4rem;
+    color: #166534;
+}
