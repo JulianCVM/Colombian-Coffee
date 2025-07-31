@@ -8,20 +8,24 @@ import login from '../assets/login-partner.png';
 
 function Login() {
 
+    // Estados para manejar los campos del cuestionario de manera dinamica
+
+    //   ACTUAL - FUTURO 
     const [user, setUser] = useState("");
     const [pass, setPass] = useState("");
     const [error, setError] = useState("");
     const [msg, setMsg] = useState("");
 
+    // Al logearse el usuario sale el mensaje de exito y se elimina automaticamente
     useEffect(() => {
         setTimeout(function() {
             setMsg("");
         }, 5000)
     })
 
-
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>, type: "user" | "password") => {
+    // Comprobar si el usuario y la contraseña estan vacios 
+    const handleInputChange = ( 
+        e: React.ChangeEvent<HTMLInputElement>, type: "user" | "password") => { // En typescript se debe especificar el tipo de evento que se usa
         setError("");
         const value = e.target.value;
       
@@ -34,7 +38,7 @@ function Login() {
         }
       };
       
-
+    // Form event sirve para manejar toda la respuesta del formulario, no solo de un campo
     const loginSubmit = (e: React.FormEvent) => {
         e.preventDefault();
     
@@ -78,7 +82,7 @@ function Login() {
             <div className="logo-circle">
               <img src={logo} alt="Logo" className="logo-img" />
             </div>
-            <h2>Panel de Administración</h2>
+            <h2>Inicio de sesion</h2>
             <p>Colombian Coffee Catalog</p>
           </div>
   
