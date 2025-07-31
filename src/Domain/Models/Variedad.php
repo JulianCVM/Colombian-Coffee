@@ -14,7 +14,6 @@ class Variedad extends Model
     protected $fillable = [
         'nombre_comun',
         'nombre_cientifico',
-        'imagen',
         'descripcion_general',
         'porte',
         'tamanho_del_grano',
