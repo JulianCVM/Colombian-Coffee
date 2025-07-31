@@ -95,4 +95,23 @@ class VariedadDTO
             "historia" => $this->historia
         ];
     }
+
+    // funcion mapper para parsear de array a DTO
+    public static function fromArrayMapper(array $data): self
+    {
+        return new self(
+            $data['nombre_comun'] ?? '',
+            $data['nombre_cientifico'] ?? '',
+            $data['imagen'] ?? null,
+            $data['descripcion_general'] ?? null,
+            $data['porte'] ?? '',
+            $data['tamanho_del_grano'] ?? '',
+            (int) ($data['altitud_optima_siembra'] ?? 0),
+            (float) ($data['potencial_de_rendimiento'] ?? 0),
+            $data['calidad_grano_altitud'] ?? '',
+            $data['resistencia'] ?? '',
+            $data['datos_agronomicos'] ?? [],
+            $data['historia'] ?? null
+        );
+    }
 }
