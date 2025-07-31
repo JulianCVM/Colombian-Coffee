@@ -9,7 +9,7 @@ class Variedad extends Model
 {
     protected $table = 'variedad'; // Nombre de la tabla "variedad" que es donde se almacena toda la info de el modelo
     protected $primaryKey = 'id'; // Llave primaria de la tabla
-    public $timestamps = true; // Habilito el uso de created_at y updated_at
+    public $timestamps = false; // Deshabilito el uso de created_at y updated_at
     // Campos de la tabla que estan habilitados para ser llenados
     protected $fillable = [
         'nombre_comun',
