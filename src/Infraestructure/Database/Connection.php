@@ -5,8 +5,11 @@ namespace App\Infraestructure\Database;
 use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+
+// Clase para establecer la conexion a la DB usando el .env para sacar las credenciales de conexion 
 class Connection
 {
+    // funcion de arranque de conexion
     public static function init(): string|bool
     {
         $capsule = new Capsule;
