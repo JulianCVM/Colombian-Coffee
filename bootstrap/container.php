@@ -14,6 +14,8 @@ $container->set(VariedadRepositoryInterface::class, function () {
 });
 
 
-
+$container->set(UserRepositoryInterface::class, function () {
+    return new EloquentUserRepository();
+});
 
 return $container;
