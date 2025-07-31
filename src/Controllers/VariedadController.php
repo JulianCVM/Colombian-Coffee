@@ -14,8 +14,14 @@ class VariedadController
     public function index(Request $request, Response $response): Response
     {
         $useCase = new GetAllVariedades($this->repo);
-        $variedad = $useCase->execute();
-        $response->getBody()->write(json_encode($variedad));
-        return $response;
+        $result = $useCase->execute();
+
+        // Si viene una Collection/Model de Eloquent, la volvemos arreglo:
+        if (is_object($result) && method_exists($result, 'toArray')) {
+            $result = $result->toArray();
+        }
+
+        $response->getBody()->write(json_encode($result, JSON_UNESCAPED_UNICODE));
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }

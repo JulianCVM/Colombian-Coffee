@@ -20,6 +20,7 @@ $container = require_once __DIR__ . '/bootstrap/container.php';
 $app = AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+$app->addBodyParsingMiddleware();
 
 Connection::init();
 
@@ -29,6 +30,7 @@ $container->set(ResponseFactoryInterface::class, $app->getResponseFactory());
 
 (require_once __DIR__ . '/public/index.php')($app);
 (require_once __DIR__ . '/routes/variedad.php')($app);
+(require_once __DIR__ . '/routes/test.php')($app);
 
 
 $app->run();
