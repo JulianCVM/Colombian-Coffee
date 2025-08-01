@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Repositories\ImagenRepositoryInterface;
 use App\Domain\Repositories\VariedadGlobalRepositoryInterface;
 use App\Domain\Repositories\VariedadRepositoryInterface;
 use App\Infraestructure\Repositories\EloquentVariedadRepository;
@@ -7,6 +8,7 @@ use DI\Container;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
+use App\Infraestructure\Repositories\EloquentImagenRepository;
 use App\Infraestructure\Repositories\EloquentVariedadGlobalRepository;
 
 $container = new Container();
@@ -19,6 +21,9 @@ $container->set(VariedadGlobalRepositoryInterface::class, function () {
     return new EloquentVariedadGlobalRepository;
 });
 
+$container->set(ImagenRepositoryInterface::class, function () {
+    return new EloquentImagenRepository;
+});
 
 
 
