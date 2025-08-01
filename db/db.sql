@@ -113,7 +113,6 @@ CREATE TABLE variedad (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre_comun VARCHAR(255) NOT NULL,
     nombre_cientifico VARCHAR(255) NOT NULL,
-    imagen BIGINT UNSIGNED NOT NULL,
     descripcion_general TEXT NOT NULL,
     porte BIGINT UNSIGNED NOT NULL,
     tamanho_del_grano BIGINT UNSIGNED NOT NULL,
@@ -123,7 +122,6 @@ CREATE TABLE variedad (
     resistencia BIGINT UNSIGNED NOT NULL,
     datos_agronomicos BIGINT UNSIGNED NOT NULL,
     historia BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (imagen) REFERENCES imagenes (id),
     FOREIGN KEY (porte) REFERENCES porte (id),
     FOREIGN KEY (tamanho_del_grano) REFERENCES tamanho_grano (id),
     FOREIGN KEY (potencial_de_rendimiento) REFERENCES potencial_de_rendimiento (id),
@@ -131,6 +129,14 @@ CREATE TABLE variedad (
     FOREIGN KEY (resistencia) REFERENCES resistencias (id),
     FOREIGN KEY (datos_agronomicos) REFERENCES datos_agronomicos (id),
     FOREIGN KEY (historia) REFERENCES historia_linaje (id)
+);
+
+CREATE TABLE imagenes_variedad (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    imagenes_id BIGINT UNSIGNED NOT NULL,
+    variedad_id BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (imagenes_id) REFERENCES imagenes (id),
+    FOREIGN KEY (variedad_id) REFERENCES variedad (id)
 );
 
 SELECT 'Base de datos con forma de pulpo' as mensaje;
@@ -558,7 +564,6 @@ INSERT INTO
     variedad (
         nombre_comun,
         nombre_cientifico,
-        imagen,
         descripcion_general,
         porte,
         tamanho_del_grano,
@@ -572,7 +577,6 @@ INSERT INTO
 VALUES (
         'Típica',
         'Coffea arabica var. typica',
-        1,
         'Una de las primeras variedades cultivadas en Colombia, apreciada por su taza suave y aromática.',
         1,
         5,
@@ -586,7 +590,6 @@ VALUES (
     (
         'Borbón',
         'Coffea arabica var. bourbon',
-        2,
         'Variedad antigua conocida por su dulzor y balance, requiere buen manejo por su susceptibilidad a enfermedades.',
         1,
         4,
@@ -600,7 +603,6 @@ VALUES (
     (
         'Caturra',
         'Coffea arabica var. caturra',
-        3,
         'Mutación natural de Borbón, porte bajo e ideal para mayor densidad de siembra.',
         3,
         2,
@@ -614,7 +616,6 @@ VALUES (
     (
         'Variedad Colombia',
         'Coffea arabica var. colombia',
-        4,
         'Desarrollada por Cenicafé, combina alta productividad con resistencia a la roya.',
         2,
         5,
@@ -628,7 +629,6 @@ VALUES (
     (
         'Maragogipe',
         'Coffea arabica var. maragogipe',
-        5,
         'Conocida como el grano gigante, tiene porte alto y baja densidad de siembra.',
         1,
         3,
@@ -642,7 +642,6 @@ VALUES (
     (
         'Tabi',
         'Coffea arabica var. tabi',
-        6,
         'Híbrido de Borbón, Típica y Híbrido de Timor; combina calidad de taza con resistencia.',
         2,
         4,
@@ -691,3 +690,11 @@ VALUES (
         '$2y$10$yHmXbbKPLGhSyXZyAhDbNO6VYYeUeCOtQK7nMY7EqZkxUWr6VvKv2', -- contraseña: admin123
         'admin'
     );
+
+INSERT INTO
+    imagenes_variedad (imagenes_id, variedad_id)
+VALUES (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
