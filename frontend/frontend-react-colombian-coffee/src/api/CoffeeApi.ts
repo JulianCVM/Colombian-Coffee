@@ -5,7 +5,7 @@ const API_COLOMBIAN_COFFEE = "http://localhost:8080";
 
 // 
 export default function getDataList(): Promise<Data> {
-    return fetch(`${API_COLOMBIAN_COFFEE}/variedad`, {
+    return fetch(`${API_COLOMBIAN_COFFEE}/variedad/all`, {
         "method": "GET",
         "headers": {
             "Content-Type": "application/json"
