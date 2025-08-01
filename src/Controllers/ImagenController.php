@@ -17,14 +17,19 @@ class ImagenController
 
 
     // En la funcion obtenerImagen se hace llamado al caso de uso GetImagenById el cual hace uso de la funcion getById() de la interfaz la cual tiene como logica definida traer la imagen en especifico asociada a este id
-    public function obtenerImagen(Request $request, Response $response): Response
+    public function obtenerImagen(Request $request, Response $response, array $args): Response
     {
+        $id = isset($args['id']) ? (int)$args['id'] : null;
 
-        $data = $request->getParsedBody();
+        if ($id === null) {
+            $response->getBody()->write(json_encode(['error' => 'ID no proporcionado']));
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        }
 
         $useCase = new GetImagenById($this->repo);
-        $imagen = $useCase->execute($data['id']);
+        $imagen = $useCase->execute($id);
+
         $response->getBody()->write(json_encode($imagen));
-        return $response;
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }
