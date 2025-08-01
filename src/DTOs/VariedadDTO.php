@@ -5,13 +5,15 @@ namespace App\DTOs;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
 
+
+// Se crea el DTO que va a manejar toda la data de Variedad
 class VariedadDTO
 {
 
+    // se define la data del constructor del DTO donde se define que data se va a estar manejando en este mismo respecto a variedad
     public function __construct(
         public readonly string $nombre_comun,
         public readonly string $nombre_cientifico,
-        public readonly int $imagen,
         public readonly string $descripcion_general,
         public readonly int $porte,
         public readonly int $tamanho_del_grano,
@@ -22,10 +24,10 @@ class VariedadDTO
         public readonly int $datos_agronomicos,
         public readonly int $historia,
     ) {
+        // implementacion de la funcion de validacion de la data
         $this->validateData(
             $nombre_comun,
             $nombre_cientifico,
-            $imagen,
             $descripcion_general,
             $porte,
             $tamanho_del_grano,
@@ -38,10 +40,10 @@ class VariedadDTO
         );
     }
 
+    // funcion para validar toda la informacion del DTO para hacer validacion de tipo de dato para cada atributo
     private function validateData(
         string $nombre_comun,
         string $nombre_cientifico,
-        int $imagen,
         string $descripcion_general,
         int $porte,
         int $tamanho_del_grano,
@@ -53,9 +55,9 @@ class VariedadDTO
         int $historia
     ): void {
         try {
+            // Se hacen las validaciones para strings, enteros y decimales (flotantes/float) validando para cada campo condiciones especificas de uso
             v::stringType()->notEmpty()->length(3, 255)->check($nombre_comun);
             v::stringType()->notEmpty()->length(3, 255)->check($nombre_cientifico);
-            v::intVal()->min(1)->check($imagen);
             v::stringType()->notEmpty()->length(3, 255)->check($descripcion_general);
             v::intVal()->min(1)->check($porte);
             v::intVal()->min(1)->check($tamanho_del_grano);
@@ -70,12 +72,13 @@ class VariedadDTO
         }
     }
 
+
+    // Se genera la funcion mapper de parseo a array para poder manejar el DTO como array y hacer el parseo de la data mas sencillo y resumido
     public function toArrayMapper(): array
     {
         return [
             "nombre_comun" => $this->nombre_comun,
             "nombre_cientifico" => $this->nombre_cientifico,
-            "imagen" => $this->imagen,
             "descripcion_general" => $this->descripcion_general,
             "porte" => $this->porte,
             "tamanho_del_grano" => $this->tamanho_del_grano,
@@ -86,5 +89,23 @@ class VariedadDTO
             "datos_agronomicos" => $this->datos_agronomicos,
             "historia" => $this->historia
         ];
+    }
+
+    // funcion mapper para parsear de array a DTO
+    public static function fromArrayMapper(array $data): self
+    {
+        return new self(
+            $data['nombre_comun'] ?? '',
+            $data['nombre_cientifico'] ?? '',
+            $data['descripcion_general'] ?? null,
+            $data['porte'] ?? '',
+            $data['tamanho_del_grano'] ?? '',
+            (int) ($data['altitud_optima_siembra'] ?? 0),
+            (float) ($data['potencial_de_rendimiento'] ?? 0),
+            $data['calidad_grano_altitud'] ?? '',
+            $data['resistencia'] ?? '',
+            $data['datos_agronomicos'] ?? [],
+            $data['historia'] ?? null
+        );
     }
 }

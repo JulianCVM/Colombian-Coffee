@@ -1,3 +1,4 @@
+
 <?php
 
 require_once "vendor/autoload.php";
@@ -25,6 +26,11 @@ Connection::init();
 
 $container->set(ResponseFactoryInterface::class, $app->getResponseFactory());
 
+// implementacion del custom handler
+$errorHanlder = $app->addErrorMiddleware(true, true, true);
+$errorHanlder->setDefaultErrorHandler($container->get(
+    ErrorHandlerInterface::class
+));
 
 
 (require_once __DIR__ . '/public/index.php')($app);
