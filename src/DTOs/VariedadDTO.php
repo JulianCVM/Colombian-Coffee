@@ -14,7 +14,6 @@ class VariedadDTO
     public function __construct(
         public readonly string $nombre_comun,
         public readonly string $nombre_cientifico,
-        public readonly int $imagen,
         public readonly string $descripcion_general,
         public readonly int $porte,
         public readonly int $tamanho_del_grano,
@@ -29,7 +28,6 @@ class VariedadDTO
         $this->validateData(
             $nombre_comun,
             $nombre_cientifico,
-            $imagen,
             $descripcion_general,
             $porte,
             $tamanho_del_grano,
@@ -46,7 +44,6 @@ class VariedadDTO
     private function validateData(
         string $nombre_comun,
         string $nombre_cientifico,
-        int $imagen,
         string $descripcion_general,
         int $porte,
         int $tamanho_del_grano,
@@ -61,7 +58,6 @@ class VariedadDTO
             // Se hacen las validaciones para strings, enteros y decimales (flotantes/float) validando para cada campo condiciones especificas de uso
             v::stringType()->notEmpty()->length(3, 255)->check($nombre_comun);
             v::stringType()->notEmpty()->length(3, 255)->check($nombre_cientifico);
-            v::intVal()->min(1)->check($imagen);
             v::stringType()->notEmpty()->length(3, 255)->check($descripcion_general);
             v::intVal()->min(1)->check($porte);
             v::intVal()->min(1)->check($tamanho_del_grano);
@@ -83,7 +79,6 @@ class VariedadDTO
         return [
             "nombre_comun" => $this->nombre_comun,
             "nombre_cientifico" => $this->nombre_cientifico,
-            "imagen" => $this->imagen,
             "descripcion_general" => $this->descripcion_general,
             "porte" => $this->porte,
             "tamanho_del_grano" => $this->tamanho_del_grano,
@@ -94,5 +89,23 @@ class VariedadDTO
             "datos_agronomicos" => $this->datos_agronomicos,
             "historia" => $this->historia
         ];
+    }
+
+    // funcion mapper para parsear de array a DTO
+    public static function fromArrayMapper(array $data): self
+    {
+        return new self(
+            $data['nombre_comun'] ?? '',
+            $data['nombre_cientifico'] ?? '',
+            $data['descripcion_general'] ?? null,
+            $data['porte'] ?? '',
+            $data['tamanho_del_grano'] ?? '',
+            (int) ($data['altitud_optima_siembra'] ?? 0),
+            (float) ($data['potencial_de_rendimiento'] ?? 0),
+            $data['calidad_grano_altitud'] ?? '',
+            $data['resistencia'] ?? '',
+            $data['datos_agronomicos'] ?? [],
+            $data['historia'] ?? null
+        );
     }
 }

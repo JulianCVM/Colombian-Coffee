@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Domain\Repositories\VariedadRepositoryInterface;
+use App\DTOs\VariedadDTO;
+use App\UseCases\CreateVariedad;
 use App\UseCases\GetAllVariedades;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -22,5 +24,25 @@ class VariedadController
         $variedad = $useCase->execute();
         $response->getBody()->write(json_encode($variedad));
         return $response;
+    }
+
+    public function store(Request $request, Response $response): Response
+    {
+        $data = $request->getParsedBody();
+
+        // se parsea la data de array a DTO
+        $dto = VariedadDTO::fromArrayMapper($data);
+
+        // se pasa el dto al caso de uso
+        $useCase = new CreateVariedad($this->repo);
+        $variedad = $useCase->execute($dto);
+        if (!$variedad) {
+            $response->getBody()->write(json_encode([
+                "error" => "No se pudo crear la variedad",
+            ]));
+            return $response->withStatus(400);
+        }
+        $response->getBody()->write(json_encode($variedad));
+        return $response->withStatus(201);
     }
 }

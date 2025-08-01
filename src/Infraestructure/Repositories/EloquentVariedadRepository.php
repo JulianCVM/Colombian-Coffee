@@ -40,10 +40,6 @@ class EloquentVariedadRepository implements VariedadRepositoryInterface
     public function create(VariedadDTO $dto): Variedad
     {
         $data = $dto->toArrayMapper();
-        $exist = $this->getById($data['id']);
-        if ($exist) {
-            throw new Exception('Error el usuario ya existe');
-        }
         return Variedad::create($data);
     }
 
