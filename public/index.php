@@ -1,6 +1,8 @@
 <?php
 
 // importaciones necesarias para el funcionamiento de la API y de PSR
+
+use App\Middleware\CorsMiddleware;
 use Slim\App;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -19,4 +21,7 @@ return function (App $app) {
 
     // implementacion del middleware
     $app->add(new JsonBodyParserMiddleware);
+
+    // implementacion del cors
+    $app->add(new CorsMiddleware);
 };
