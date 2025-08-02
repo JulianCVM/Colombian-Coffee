@@ -5,33 +5,48 @@ namespace App\Infraestructure\Database;
 use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-
-// Clase para establecer la conexion a la DB usando el .env para sacar las credenciales de conexion 
 class Connection
 {
-    // funcion de arranque de conexion
-    public static function init(): string|bool
+    private static ?Capsule $capsule = null;
+
+    public static function init(): bool
     {
-        $capsule = new Capsule;
-        $capsule->addConnection(
-            [
+        if (self::$capsule !== null) {
+            return true; // Ya está inicializado
+        }
+
+        try {
+            self::$capsule = new Capsule;
+            
+            self::$capsule->addConnection([
                 'driver' => 'mysql',
                 'host' => $_ENV['DB_HOST'],
                 'database' => $_ENV['DB_NAME'],
                 'username' => $_ENV['DB_USER'],
                 'password' => $_ENV['DB_PASS'],
-                'charset'   => 'utf8mb4',
+                'charset' => 'utf8mb4',
                 'collation' => 'utf8mb4_unicode_ci',
                 'prefix' => '',
-            ]
-        );
-        $capsule->setAsGlobal();
-        $capsule->bootEloquent();
-        try {
-            Capsule::connection()->getPdo();
+            ]);
+
+            // Hacer que Eloquent esté disponible globalmente
+            self::$capsule->setAsGlobal();
+            
+            // Boot Eloquent
+            self::$capsule->bootEloquent();
+
+            // Probar la conexión
+            self::$capsule->getConnection()->getPdo();
+            
             return true;
+            
         } catch (Exception $ex) {
-            return "No se pudo establecer conexion con la base de datos: " . $ex->getMessage();
+            throw new Exception("No se pudo establecer conexión con la base de datos: " . $ex->getMessage());
         }
+    }
+
+    public static function getCapsule(): ?Capsule
+    {
+        return self::$capsule;
     }
 }

@@ -690,7 +690,6 @@ VALUES (
         '$2y$10$yHmXbbKPLGhSyXZyAhDbNO6VYYeUeCOtQK7nMY7EqZkxUWr6VvKv2', -- contraseña: admin123
         'admin'
     );
-
 INSERT INTO
     imagenes_variedad (imagenes_id, variedad_id)
 VALUES (1, 1),

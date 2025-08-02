@@ -1,26 +1,29 @@
 <?php
 
-
-// configuración de rutas para manejar solicitudes HTTP relacionadas con autenticación.
-use Slim\App;
 use App\Controllers\UserController;
+use App\Infraestructure\Repositories\UserRepository;
+use Slim\App;
 
 return function (App $app) {
-    $app->post('/auth/user/login', function ($req, $res) {
-        $res->getBody()->write(json_encode(['msg' => 'Funciona login']));
-        return $res->withHeader('Content-Type', 'application/json');
+    
+    // Ruta de login - POST /auth/user/login
+    $app->post('/auth/user/login', function ($request, $response) {
+        $repo = new UserRepository();
+        $controller = new UserController($repo);
+        return $controller->loginUser($request, $response);
+    });
+    
+    // Ruta de registro de usuario - POST /auth/user/register
+    $app->post('/auth/user/register', function ($request, $response) {
+        $repo = new UserRepository();
+        $controller = new UserController($repo);
+        return $controller->createUser($request, $response);
+    });
+    
+    // Ruta de registro de admin - POST /auth/admin/register
+    $app->post('/auth/admin/register', function ($request, $response) {
+        $repo = new UserRepository();
+        $controller = new UserController($repo);
+        return $controller->createAdmin($request, $response);
     });
 };
-
-
-
-// FALTA ARREGLAR 
-#use Slim\App;
-#use App\Controllers\UserController;
-#
-#return function (App $app) {
-#    $app->group('/auth', function ($group) {
-#        $group->post('/user/login', [UserController::class, 'login']);
-#        $group->post('/user/register', [UserController::class, 'createUser']);
-#    });
-#};

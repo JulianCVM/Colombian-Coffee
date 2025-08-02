@@ -10,7 +10,7 @@ interface UserRepositoryInterface
     // funcion para obtener todos los usuarios
     public function getAll(): array;
     // funcion para obtener usuario por ID
-    public function getById(int $identificdor): ?User;
+    public function getById(int $id): ?User;
     // funcion para obtener usuario por email
     public function findByEmail(string $email): ?User;
     // funcion para crear usuarios

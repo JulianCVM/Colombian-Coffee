@@ -3,7 +3,7 @@
 namespace App\UseCases;
 
 use App\Domain\Repositories\UserRepositoryInterface;
-use App\DTOs\UserDTO;
+use App\DTOs\LoginDTO;
 use App\Services\JwtService;
 
 class LoginUsuarioUseCase
@@ -15,18 +15,29 @@ class LoginUsuarioUseCase
         $this->repo = $repo;
     }
 
-    public function __invoke(UserDTO $dto): string
+    public function __invoke(LoginDTO $dto): array
     {
         $user = $this->repo->findByEmail($dto->email);
 
-        if (!$user || !password_verify($dto->password, $user->getPassword())) {
+        if (!$user || !password_verify($dto->password, $user->password)) {
             throw new \Exception("Credenciales inválidas", 401);
         }
 
-        return JwtService::sign([
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'role' => $user->getRole(),
+        $token = JwtService::sign([
+            'id' => $user->id,
+            'email' => $user->email,
+            'rol' => $user->rol,
+            'nombre' => $user->nombre
         ]);
+
+        return [
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'nombre' => $user->nombre,
+                'email' => $user->email,
+                'rol' => $user->rol
+            ]
+        ];
     }
 }

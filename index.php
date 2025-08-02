@@ -1,4 +1,3 @@
-
 <?php
 
 require_once "vendor/autoload.php";
@@ -6,38 +5,42 @@ require_once "vendor/autoload.php";
 use App\Infraestructure\Database\Connection;
 use Slim\Factory\AppFactory;
 use Dotenv\Dotenv;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Slim\Interfaces\ErrorHandlerInterface;
 
-
-// Se usa la variable magica para sacar la carga de la ruta del .env
+// Cargar variables de entorno
 $dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();   // Se hace la carga del .env -> $_ENV[...]
+$dotenv->load();
 
+// Configurar el contenedor DI
+$container = require_once __DIR__ . '/config/container.php';
+AppFactory::setContainer($container);
 
-// Se hace la carga del container 
-$container = require_once __DIR__ . '/bootstrap/container.php';
-
-$app = AppFactory::setContainer($container);
+// Crear la app
 $app = AppFactory::create();
 
-$app->addBodyParsingMiddleware();
+// Inicializar conexión a la base de datos
+try {
+    $connectionResult = Connection::init();
+    if (!$connectionResult) {
+        throw new Exception("Falló la inicialización de la base de datos");
+    }
+    echo "✅ Conexión a la base de datos establecida\n";
+} catch (Exception $e) {
+    echo "❌ Error de conexión: " . $e->getMessage() . "\n";
+    die();
+}
 
-Connection::init();
-
-$container->set(ResponseFactoryInterface::class, $app->getResponseFactory());
-
-// implementacion del custom handler
-$errorHanlder = $app->addErrorMiddleware(true, true, true);
-$errorHanlder->setDefaultErrorHandler($container->get(
-    ErrorHandlerInterface::class
-));
-
-
+// Configurar middlewares personalizados (tu archivo actual)
 (require_once __DIR__ . '/public/index.php')($app);
-(require_once __DIR__ . '/routes/variedad.php')($app);
-(require_once __DIR__ . '/routes/auth.php')($app);
-(require_once __DIR__ . '/routes/imagenes.php')($app);
 
+// Error middleware
+$app->addErrorMiddleware(true, true, true);
+
+// Manejar rutas OPTIONS para CORS
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+
+// Cargar rutas
+(require_once __DIR__ . '/routes/auth.php')($app);
 
 $app->run();

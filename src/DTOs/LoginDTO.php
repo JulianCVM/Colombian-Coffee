@@ -14,7 +14,7 @@ class LoginDTO
     {
         try {
             v::email()->assert($email);
-            v::stringType()->length(8, 100)->assert($password);
+            v::stringType()->length(1, 100)->assert($password); // Cambiado de 8 a 1 para permitir passwords más cortos
         } catch (NestedValidationException $e) {
             throw new \InvalidArgumentException($e->getFullMessage());
         }
