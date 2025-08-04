@@ -80,6 +80,13 @@ const ColombianMap: React.FC<ColombianMapProps> = ({ filteredCoffees, onDepartme
     const initializeMap = () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+
+      // Verificar que el contenedor esté visible antes de inicializar
+      if (!mapRef.current || mapRef.current.offsetWidth === 0) {
+        setTimeout(initializeMap, 50);
+        return;
       }
 
       // Inicializar el mapa centrado en Colombia
@@ -91,7 +98,14 @@ const ColombianMap: React.FC<ColombianMapProps> = ({ filteredCoffees, onDepartme
       }).addTo(map);
 
       mapInstanceRef.current = map;
-      updateMarkers();
+      
+      // Invalidar tamaño después de un breve delay
+      setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+          updateMarkers();
+        }
+      }, 100);
     };
 
     loadLeaflet();
@@ -99,6 +113,11 @@ const ColombianMap: React.FC<ColombianMapProps> = ({ filteredCoffees, onDepartme
     return () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+      // Limpiar la función global
+      if ((window as any).selectDepartment) {
+        delete (window as any).selectDepartment;
       }
     };
   }, []);
