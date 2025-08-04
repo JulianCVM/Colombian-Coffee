@@ -15,9 +15,15 @@ const UbicacionForm = () => {
   const navigate = useNavigate();
   
   const handleCancel = () => {
-    navigate('/add'); 
+    navigate('/admin'); 
   };
   
+  const capitalizar = (texto: string) => {
+    return texto
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -50,7 +56,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={departamento}
-            onChange={(e) => setDepartamento(e.target.value)}
+            onChange={(e) => setDepartamento(capitalizar(e.target.value))}
             placeholder="ej. Huila"
             required
           />
@@ -61,7 +67,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={clima}
-            onChange={(e) => setClima(e.target.value)}
+            onChange={(e) => setClima(capitalizar(e.target.value))}
             placeholder="ej. Tropical de montaña"
             required
           />
@@ -72,7 +78,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={suelo}
-            onChange={(e) => setSuelo(e.target.value)}
+            onChange={(e) => setSuelo(capitalizar(e.target.value))}
             placeholder="ej. Franco arcilloso"
             required
           />
@@ -83,7 +89,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={altitud}
-            onChange={(e) => setAltitud(e.target.value)}
+            onChange={(e) => setAltitud(capitalizar(e.target.value))}
             placeholder="ej. 1,200 - 1,800 msnm"
             required
           />
@@ -94,7 +100,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={temperatura}
-            onChange={(e) => setTemperatura(e.target.value)}
+            onChange={(e) => setTemperatura(capitalizar(e.target.value))}
             placeholder="ej. 18-22°C"
             required
           />
