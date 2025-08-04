@@ -11,9 +11,6 @@ interface VariedadRepositoryInterface
     // funcion de obtener toda la data
     public function getAll(): array;
 
-    // funcion de obtener la data de una vaariedad especifica filtrando por id
-    public function getById(int $identificador): ?Variedad;
-
     // funcion que permite crear un DTO de variedad
     public function create(VariedadDTO $dto): Variedad;
 

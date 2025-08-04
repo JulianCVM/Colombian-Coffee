@@ -20,5 +20,7 @@ return function (App $app) {
         $group->get('', [VariedadController::class, 'index']);
         $group->post('', [VariedadController::class, 'store']);
         $group->get('/all', [VariedadGlobalController::class, 'index']);
+        $group->put('/{id}', [VariedadController::class, 'update']);
+        $group->delete('/{id}', [VariedadController::class, 'destroy']);
     });
 };
