@@ -98,8 +98,8 @@ El frontend en este proyecto es más que una capa estética: es la **puerta de e
 - **Backend**: PHP 8.x, Slim Framework 4, PDO, Composer.
 - **Frontend**: HTML5, CSS3, JavaScript, Bootstrap/Tailwind o Vue/React.
 - **Base de datos**: MySQL.
-- **PDF**: Dompdf (*Opcional*).
-- **Mapas**: [Leaflet.js](http://leaflet.js/) (*Opcional*).
+- **PDF**: Dompdf (_Opcional_).
+- **Mapas**: [Leaflet.js](http://leaflet.js/) (_Opcional_).
 - **Testing y API**: Postman.
 - **Control de versiones**: Git y GitHub.
 

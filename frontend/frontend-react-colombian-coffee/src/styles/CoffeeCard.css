@@ -1,0 +1,51 @@
+.coffee-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    width: 280px;
+    cursor: pointer;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .coffee-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .coffee-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .coffee-info {
+    padding: 1rem;
+  }
+  
+  .coffee-info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+  }
+  
+  .coffee-info p {
+    margin: 0.5rem 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  .coffee-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: #444;
+  }
+  
+  .coffee-info li {
+    margin-bottom: 0.3rem;
+  }
+  
