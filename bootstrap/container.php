@@ -5,6 +5,8 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Infraestructure\Repositories\EloquentImagenRepository;
+use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInterface;
+use App\Modules\HistoriaLinaje\Infraestructure\Repositories\EloquentHistoriaLinajeRepository;
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
 use App\Modules\Variedad\Domain\Repositories\VariedadRepositoryInterface;
 use App\Modules\Variedad\Infraestructure\Repositories\EloquentVariedadRepository;
@@ -23,6 +25,10 @@ $container->set(VariedadGlobalRepositoryInterface::class, function () {
 
 $container->set(ImagenRepositoryInterface::class, function () {
     return new EloquentImagenRepository;
+});
+
+$container->set(HistoriaLinajeRepositoryInterface::class, function () {
+    return new EloquentHistoriaLinajeRepository;
 });
 
 
