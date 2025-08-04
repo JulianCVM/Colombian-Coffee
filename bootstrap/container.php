@@ -10,6 +10,8 @@ use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInter
 use App\Modules\HistoriaLinaje\Infraestructure\Repositories\EloquentHistoriaLinajeRepository;
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
 use App\Modules\Imagenes\Infraestructure\Repositories\EloquentImagenRepository;
+use App\Modules\Porte\Domain\Repositories\PorteRepositoryInterface;
+use App\Modules\Porte\Repositories\EloquentPorteRepository;
 use App\Modules\PotencialDeRendimiento\Domain\Repositories\PotencialDeRendimientoRepositoryInterface;
 use App\Modules\PotencialDeRendimiento\Repositories\EloquentPotencialDeRendimientoRepository;
 use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface;
@@ -55,6 +57,9 @@ $container->set(UbicacionRepositoryInterface::class, function () {
     return new EloquentUbicacionRepository;
 });
 
+$container->set(PorteRepositoryInterface::class, function () {
+    return new EloquentPorteRepository;
+});
 
 // Handler
 
