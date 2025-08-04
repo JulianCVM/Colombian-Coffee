@@ -1,11 +1,5 @@
 <?php
 
-// Debug temporal
-file_put_contents('debug.log', "=== REQUEST ===\n", FILE_APPEND);
-file_put_contents('debug.log', "URI: " . $_SERVER['REQUEST_URI'] . "\n", FILE_APPEND);
-file_put_contents('debug.log', "METHOD: " . $_SERVER['REQUEST_METHOD'] . "\n", FILE_APPEND);
-file_put_contents('debug.log', "TIME: " . date('Y-m-d H:i:s') . "\n\n", FILE_APPEND);
-
 require_once "vendor/autoload.php";
 
 use App\Infraestructure\Database\Connection;
@@ -15,37 +9,33 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 
 try {
-    file_put_contents('debug.log', "Iniciando aplicación Slim\n", FILE_APPEND);
-
+    // Cargar variables de entorno
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 
+    // Crear contenedor de dependencias y aplicación
     $container = require_once __DIR__ . '/bootstrap/container.php';
-    $app = AppFactory::setContainer($container);
+    AppFactory::setContainer($container);
     $app = AppFactory::create();
 
+    // Inicializar conexión a la base de datos
     Connection::init();
 
+    // Registrar response factory en el contenedor
     $container->set(ResponseFactoryInterface::class, $app->getResponseFactory());
 
-    // Cargar middleware
+    // Cargar middlewares y rutas
     (require_once __DIR__ . '/public/index.php')($app);
+    (require_once __DIR__ . '/src/Modules/Variedad/routes/variedad.php')($app);
+    (require_once __DIR__ . '/src/Modules/Imagenes/routes/imagenes.php')($app);
 
-    // Rutas
-    (require_once __DIR__ . '/routes/variedad.php')($app);
-    (require_once __DIR__ . '/routes/imagenes.php')($app);
-
-    // Error handling
+    // Configurar manejo de errores
     $errorHandler = $app->addErrorMiddleware(true, true, true);
     $errorHandler->setDefaultErrorHandler($container->get(ErrorHandlerInterface::class));
 
-    file_put_contents('debug.log', "Ejecutando app->run()\n", FILE_APPEND);
-
+    // Ejecutar la aplicación
     $app->run();
 } catch (\Exception $e) {
-    file_put_contents('debug.log', "ERROR: " . $e->getMessage() . "\n", FILE_APPEND);
-    file_put_contents('debug.log', "TRACE: " . $e->getTraceAsString() . "\n", FILE_APPEND);
-
     // Mostrar error en formato JSON
     header('Content-Type: application/json');
     echo json_encode(['error' => $e->getMessage()]);
