@@ -13,6 +13,10 @@ import EnfermedadesForm from './pages/forms/EnfermedadForm'
 import DensidadForm from './pages/forms/DensidadForm'
 import CalidadGranoForm from './pages/forms/CalidadGranoForm'
 import PotencialForm from './pages/forms/PotencialRendimientoForm'
+import CalidadAltitudForm from './pages/forms/CalidadAltitud'
+import ResistenciaForm from './pages/forms/Resistencias'
+import DatosAgronomicosForm from './pages/forms/DatosAgronomicos'
+import VariedadForm from './pages/forms/VariedadForm'
 
 function App() {
 
@@ -30,8 +34,12 @@ function App() {
           <Route path="/admin/add/condiciones" element={<CondicionesForm />} />
           <Route path="/admin/add/enfermedad" element={<EnfermedadesForm />} />
           <Route path="/admin/add/densidad" element={<DensidadForm />} />
-          <Route path="/admin/add/calidad-grano" element={<CalidadGranoForm />} />
+          <Route path="/admin/add/calidad-de-grano" element={<CalidadGranoForm />} />
           <Route path="/admin/add/potencial-de-rendimiento" element={<PotencialForm />} />
+          <Route path="/admin/add/calidad-por-altitud" element={<CalidadAltitudForm />} />
+          <Route path="/admin/add/resistencias" element={<ResistenciaForm />} />
+          <Route path="/admin/add/datos-agronomicos" element={<DatosAgronomicosForm />} />
+          <Route path="/admin/add/variedad" element={<VariedadForm />} />
         </Routes>
       </BrowserRouter>
     </>
