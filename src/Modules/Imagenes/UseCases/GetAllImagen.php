@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\TamanhoGrano\UseCases;
+namespace App\Modules\Imagenes\UseCases;
 
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
 
-class DeleteTamanhoGrano
+class GetAllImagen
 {
     public function __construct(private ImagenRepositoryInterface $repo) {}
 
-    public function execute(int $id): bool
+    public function execute(): array
     {
-        return $this->repo->delete($id);
+        return $this->repo->getAll();
     }
 }
