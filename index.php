@@ -29,6 +29,7 @@ try {
     (require_once __DIR__ . '/src/Modules/Variedad/routes/variedad.php')($app);
     (require_once __DIR__ . '/src/Modules/Imagenes/routes/imagenes.php')($app);
     (require_once __DIR__ . '/src/Modules/HistoriaLinaje/routes/HistoriaLinaje.php')($app);
+    (require_once __DIR__ . '/src/Modules/Condicion/routes/condicion.php')($app);
 
     // Configurar manejo de errores
     $errorHandler = $app->addErrorMiddleware(true, true, true);
