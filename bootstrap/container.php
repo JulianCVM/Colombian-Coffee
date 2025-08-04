@@ -1,11 +1,11 @@
 <?php
 
-use App\Domain\Repositories\ImagenRepositoryInterface;
 use DI\Container;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Infraestructure\Repositories\EloquentImagenRepository;
+use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
 use App\Modules\Variedad\Domain\Repositories\VariedadRepositoryInterface;
 use App\Modules\Variedad\Infraestructure\Repositories\EloquentVariedadRepository;
 use App\Modules\VariedadGlobal\Domain\Repositories\VariedadGlobalRepositoryInterface;

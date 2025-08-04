@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\Repositories;
+namespace App\Modules\Imagenes\Domain\Repositories;
 
-use App\Domain\Models\Imagen;
 use App\DTOs\ImagenDTO;
+use App\Modules\Imagenes\Domain\Models\Imagen;
 
 // Se crea la interfaz con la cual se definen que metodos se van a implementar para este modulo
 interface ImagenRepositoryInterface
