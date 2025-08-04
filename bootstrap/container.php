@@ -10,6 +10,8 @@ use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionReposito
 use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInterface;
 use App\Modules\HistoriaLinaje\Infraestructure\Repositories\EloquentHistoriaLinajeRepository;
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
+use App\Modules\PotencialDeRendimiento\Domain\Repositories\PotencialDeRendimientoRepositoryInterface;
+use App\Modules\PotencialDeRendimiento\Repositories\EloquentPotencialDeRendimientoRepository;
 use App\Modules\Variedad\Domain\Repositories\VariedadRepositoryInterface;
 use App\Modules\Variedad\Infraestructure\Repositories\EloquentVariedadRepository;
 use App\Modules\VariedadGlobal\Domain\Repositories\VariedadGlobalRepositoryInterface;
@@ -35,6 +37,10 @@ $container->set(HistoriaLinajeRepositoryInterface::class, function () {
 
 $container->set(CondicionRepositoryInterface::class, function () {
     return new EloquentCondicionRepository;
+});
+
+$container->set(PotencialDeRendimientoRepositoryInterface::class, function () {
+    return new EloquentPotencialDeRendimientoRepository;
 });
 
 
