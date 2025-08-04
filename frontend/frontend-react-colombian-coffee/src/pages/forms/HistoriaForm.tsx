@@ -12,7 +12,13 @@ const HistoriaForm = () => {
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    navigate("/add");
+    navigate("/admin");
+  };
+
+  const capitalizar = (texto: string) => {
+    return texto
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,7 +50,7 @@ const HistoriaForm = () => {
           <input
             type="text"
             value={obtenor}
-            onChange={(e) => setObtenor(e.target.value)}
+            onChange={(e) => setObtenor(capitalizar(e.target.value))}
             placeholder="ej. Cenicafé"
             required
           />
@@ -55,7 +61,7 @@ const HistoriaForm = () => {
           <input
             type="text"
             value={familia}
-            onChange={(e) => setFamilia(e.target.value)}
+            onChange={(e) => setFamilia(capitalizar(e.target.value))}
             placeholder="ej. Bourbon"
             required
           />
@@ -66,7 +72,7 @@ const HistoriaForm = () => {
           <input
             type="text"
             value={grupo}
-            onChange={(e) => setGrupo(e.target.value)}
+            onChange={(e) => setGrupo(capitalizar(e.target.value))}
             placeholder="ej. Arábica tradicional"
             required
           />
