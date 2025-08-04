@@ -1,3 +1,9 @@
 RewriteEngine On
+
+# Redirigir todo a index.php excepto archivos y directorios existentes
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^ index.php [QSA,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Asegurar que PHP procese archivos .php
+AddType application/x-httpd-php .php

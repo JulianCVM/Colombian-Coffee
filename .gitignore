@@ -46,3 +46,8 @@ logs/
 
 # Slim built-in server router (si lo usas)
 router.php
+
+# Ignorar dependencias
+node_modules/
+.vite/
+
