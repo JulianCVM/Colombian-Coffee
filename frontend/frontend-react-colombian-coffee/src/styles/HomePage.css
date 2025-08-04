@@ -18,3 +18,22 @@
     font-size: 3.5rem;
     color: #166534;
 }
+
+.main-home {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .sidebar-home {
+    flex: 1 1 250px;
+    max-width: 300px;
+  }
+  
+  .cards-home {
+    flex: 3 1 700px;
+  }
+  

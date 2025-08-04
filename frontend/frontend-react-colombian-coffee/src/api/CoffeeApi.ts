@@ -1,21 +1,25 @@
 import type { Data } from "./DataInterface";
-// A la importacion se le define que es un type
 
 const API_COLOMBIAN_COFFEE = "http://localhost:8080";
 
-// 
 export default function getDataList(): Promise<Data> {
-    return fetch(`${API_COLOMBIAN_COFFEE}/variedad`, {
-        "method": "GET",
-        "headers": {
-            "Content-Type": "application/json"
+    const fullUrl = `${API_COLOMBIAN_COFFEE}/variedad/all`;
+
+    return fetch(fullUrl, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json"
         }
     })
-    .then(response => {
-        return response.json();
+    .then(response => response.text())
+    .then(textResponse => {
+        if (textResponse.trim().startsWith('<')) {
+            throw new Error('Recibido HTML');
+        }
+
+        return JSON.parse(textResponse) as Data;
     })
-    .then(response => {
-        console.log('Habemus datos ', response)
-        return response as Data
-    })
+    .catch(error => {
+        throw error;
+    });
 }

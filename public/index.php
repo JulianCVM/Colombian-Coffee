@@ -13,15 +13,16 @@ use App\Middleware\JsonBodyParserMiddleware;
 
 return function (App $app) {
 
-    // Se implementa un handler para las respuestas para que manejen siempre el encabezado con Content-Type: application/json sin importar que ruta sea
-    $app->add(function (Request $req, Handler $han): Response {
-        $response = $han->handle($req);
-        return $response->withHeader('Content-Type', 'application/json');
-    });
 
     // implementacion del middleware
     $app->add(new JsonBodyParserMiddleware);
 
     // implementacion del cors
     $app->add(new CorsMiddleware);
+
+    // Se implementa un handler para las respuestas para que manejen siempre el encabezado con Content-Type: application/json sin importar que ruta sea
+    $app->add(function (Request $req, Handler $han): Response {
+        $response = $han->handle($req);
+        return $response->withHeader('Content-Type', 'application/json');
+    });
 };
