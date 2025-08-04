@@ -5,6 +5,8 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Infraestructure\Repositories\EloquentImagenRepository;
+use App\Modules\Condicion\Domain\Repositories\CondicionRepositoryInterface;
+use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionRepository;
 use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInterface;
 use App\Modules\HistoriaLinaje\Infraestructure\Repositories\EloquentHistoriaLinajeRepository;
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
@@ -29,6 +31,10 @@ $container->set(ImagenRepositoryInterface::class, function () {
 
 $container->set(HistoriaLinajeRepositoryInterface::class, function () {
     return new EloquentHistoriaLinajeRepository;
+});
+
+$container->set(CondicionRepositoryInterface::class, function () {
+    return new EloquentCondicionRepository;
 });
 
 
