@@ -2,11 +2,11 @@
 
 namespace App\Modules\TamanhoGrano\UseCases;
 
-use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
+use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface;
 
 class DeleteTamanhoGrano
 {
-    public function __construct(private ImagenRepositoryInterface $repo) {}
+    public function __construct(private TamanhoGranoRepositoryInterface $repo) {}
 
     public function execute(int $id): bool
     {
