@@ -12,6 +12,8 @@ use App\Modules\HistoriaLinaje\Infraestructure\Repositories\EloquentHistoriaLina
 use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
 use App\Modules\PotencialDeRendimiento\Domain\Repositories\PotencialDeRendimientoRepositoryInterface;
 use App\Modules\PotencialDeRendimiento\Repositories\EloquentPotencialDeRendimientoRepository;
+use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface;
+use App\Modules\TamanhoGrano\Repositories\EloquentTamanhoGranoRepository;
 use App\Modules\Variedad\Domain\Repositories\VariedadRepositoryInterface;
 use App\Modules\Variedad\Infraestructure\Repositories\EloquentVariedadRepository;
 use App\Modules\VariedadGlobal\Domain\Repositories\VariedadGlobalRepositoryInterface;
@@ -43,6 +45,9 @@ $container->set(PotencialDeRendimientoRepositoryInterface::class, function () {
     return new EloquentPotencialDeRendimientoRepository;
 });
 
+$container->set(TamanhoGranoRepositoryInterface::class, function () {
+    return new EloquentTamanhoGranoRepository;
+});
 
 
 // Handler
