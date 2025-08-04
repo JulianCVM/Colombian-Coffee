@@ -8,7 +8,6 @@ use Respect\Validation\Validator as v;
 class VariedadDTOGlobal
 {
     public function __construct(
-
         public readonly string $nombre_comun,
         public readonly string $nombre_cientifico,
         public readonly string $descripcion_general,
