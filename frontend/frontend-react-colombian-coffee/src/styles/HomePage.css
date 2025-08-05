@@ -1,39 +1,267 @@
+
 .body-container {
-    background-color: #f9fcf0;
-    height: 100vh;
+  background: linear-gradient(135deg, #fafbfc 0%, #f0f2f5 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Patrón de fondo sutil */
+.body-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(100, 60, 26, 0.02) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(100, 60, 26, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px, 40px 40px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .header-home {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    height: 100px;
-    background-color: #f8f9fa;
-    gap: 10px;
-    flex-direction: column;
-    padding: 4rem;
+  background: linear-gradient(135deg, #643c1a 0%, #8b5a2b 50%, #a0672f 100%);
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 
+    0 20px 25px rgba(0, 0, 0, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 2px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 2px, transparent 2px),
+    radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 1px, transparent 1px),
+    radial-gradient(circle at 60% 90%, rgba(255,255,255,0.08) 1.5px, transparent 1.5px);
+  background-size: 120px 120px, 100px 100px, 80px 80px, 140px 140px;
+  animation: float 25s infinite linear;
+  pointer-events: none;
+}
+
+/* Ondas decorativas */
+.header-home::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='rgba(255,255,255,0.1)'%3E%3C/path%3E%3C/svg%3E") no-repeat center bottom;
+  background-size: cover;
+}
+
+@keyframes float {
+  0% { 
+    transform: translateY(0) rotate(0deg); 
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateY(0) rotate(360deg); 
+    opacity: 1;
+  }
 }
 
 .header-title {
-    font-size: 3.5rem;
-    color: #166534;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  margin: 0;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.1);
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(45deg, #fff, #f0f0f0, #fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% { 
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  100% { 
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.header-subtitle {
+  font-size: 1.3rem;
+  margin: 1rem 0 0;
+  opacity: 0.9;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.5px;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
 }
 
 .main-home {
-    display: flex;
-    flex-direction: row;
-    padding: 2rem;
-    gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0 2rem 2rem;
+  gap: 10rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.sidebar-home {
+  flex: 0 0 320px;
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+  z-index: 10;
+}
+
+.cards-home {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .main-home {
+    flex-direction: column;
+    padding: 0 1.5rem 2rem;
+    gap: 1.5rem;
   }
   
   .sidebar-home {
-    flex: 1 1 250px;
-    max-width: 300px;
+    flex: none;
+    position: relative;
+    top: auto;
+    max-width: none;
   }
   
+  .header-home {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-home {
+    padding: 2.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .header-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .header-subtitle {
+    font-size: 1.1rem;
+    margin: 0.8rem 0 0;
+  }
+  
+  .main-home {
+    padding: 0 1rem 1.5rem;
+    gap: 1rem;
+  }
+  
+  .body-container::before {
+    background-size: 40px 40px, 25px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-home {
+    padding: 2rem 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .header-title {
+    font-size: clamp(1.8rem, 10vw, 2.5rem);
+    letter-spacing: -0.01em;
+  }
+  
+  .header-subtitle {
+    font-size: 1rem;
+    margin: 0.5rem 0 0;
+  }
+  
+  .main-home {
+    padding: 0 0.5rem 1rem;
+    gap: 0.8rem;
+  }
+  
+  .main-home::before {
+    width: 60px;
+    height: 3px;
+  }
+}
+
+.main-home.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.main-home.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e9ecef;
+  border-top: 3px solid #643c1a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-home::before,
+  .header-title,
+  .header-subtitle,
+  .sidebar-home,
   .cards-home {
-    flex: 3 1 700px;
+    animation: none;
   }
   
+  .main-home.loading::after {
+    animation: none;
+    border: 3px solid #643c1a;
+  }
+}

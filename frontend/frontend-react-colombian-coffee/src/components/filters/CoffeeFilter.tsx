@@ -1,64 +1,131 @@
-
+// filters/CoffeeFilter.tsx
 import './Filter.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import type { Data } from '../../api/DataInterface';
 
-// Se define un tipo para las opciones del filtro (los parametros)
-type Option = { id: number; label: string };
+type FilterProps = {
+  coffees: Data;
+  onFiltersChange: (filteredCoffees: Data) => void;
+};
 
+type FilterValues = {
+  porte: string;
+  tamaño: string;
+  departamento: string;
+};
 
-const FilterPanel = () => {
-    // Aca se vuelven a asignar los valores actuales y los valores que va a recibir
-  const [porteOptions, setPorteOptions] = useState<Option[]>([]); // El option funciona como una interfaz, que recibe lo que declaramos arriba
-  const [tamañoOptions, setTamañoOptions] = useState<Option[]>([]);
-  const [departamentos, setDepartamentos] = useState<Option[]>([]);
-
-  const [filters, setFilters] = useState({
+const CoffeeFilter: React.FC<FilterProps> = ({ coffees, onFiltersChange }) => {
+  const [filters, setFilters] = React.useState<FilterValues>({
     porte: '',
     tamaño: '',
     departamento: '',
   });
 
-  useEffect(() => {
-    fetchOptions('porte', setPorteOptions);
-    fetchOptions('tamanho_grano', setTamañoOptions);
-    fetchOptions('departamento', setDepartamentos);
+  const getUniqueOptions = React.useMemo(() => {
+    const portes = [...new Set(coffees.map(coffee => coffee.porte.porte))].filter(Boolean);
+    const tamaños = [...new Set(coffees.map(coffee => coffee.tamanho_del_grano.tamanho))].filter(Boolean);
+    const departamentos = [...new Set(coffees.map(coffee => coffee.calidad_grano_altitud.ubicacion.departamento))].filter(Boolean);
 
-  }, []);
- 
-  // yo por que decidi que era buena idea utilizar typescript?
-  // para sacar los datos necesitamos el tipo (se relaciona a las tablas 'porte', tamaño, etc)
-  // y se utiliza el setter debido al tipo de dato que definimos arriba
-  const fetchOptions = async (tipo: string, setter: (opts: Option[]) => void) => {
-    const res = await fetch(`/api/filtros.php?tipo=${tipo}`);
-    const data = await res.json();
-    setter(data); // se termina sacando toda la info de las tablas
+    return {
+      portes: portes.sort(),
+      tamaños: tamaños.sort(),
+      departamentos: departamentos.sort()
+    };
+  }, [coffees]);
+
+  // Aplicar filtros
+  const applyFilters = React.useCallback((filterValues: FilterValues) => {
+    let filtered = [...coffees];
+
+    if (filterValues.porte) {
+      filtered = filtered.filter(coffee => 
+        coffee.porte.porte.toLowerCase().includes(filterValues.porte.toLowerCase())
+      );
+    }
+
+    if (filterValues.tamaño) {
+      filtered = filtered.filter(coffee => 
+        coffee.tamanho_del_grano.tamanho.toLowerCase().includes(filterValues.tamaño.toLowerCase())
+      );
+    }
+
+    if (filterValues.departamento) {
+      filtered = filtered.filter(coffee => 
+        coffee.calidad_grano_altitud.ubicacion.departamento.toLowerCase().includes(filterValues.departamento.toLowerCase())
+      );
+    }
+
+    onFiltersChange(filtered);
+  }, [coffees, onFiltersChange]);
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
+    applyFilters(newFilters);
   };
 
-  // Esto saca  el valor de los select de html
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters({ ...filters, [e.target.name]: e.target.value });
-  }; // saca todos los nombres, despues saca la 'clave' y la asocia al valor del select
+  // Limpiar filtros
+  const clearFilters = () => {
+    const clearedFilters = { porte: '', tamaño: '', departamento: '' };
+    setFilters(clearedFilters);
+    onFiltersChange(coffees);
+  };
 
   return (
     <aside className="filters">
       <h3>Filtros</h3>
-      {Object.entries(filters).map(([key, value]) => (
-        <div key={key} className="filter">   {/* key es el nombre del filtro, value es el valor seleccionado */}
-          <label htmlFor={key}>{key[0].toUpperCase() + key.slice(1).replace('_', ' ')}</label>
-          <select name={key} id={key} value={value} onChange={handleChange}>
-            <option value="">Seleccionar {key}</option>
-            {(key === 'porte' ? porteOptions
-                : key === 'tamaño' ? tamañoOptions
-                : key === 'departamento' ? departamentos
-                : []
-            ).map((opt) => (
-              <option key={opt.id} value={opt.id}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-      ))}
+      
+      <div className="filter">
+        <label htmlFor="porte">Porte</label>
+        <select 
+          name="porte" 
+          id="porte" 
+          value={filters.porte} 
+          onChange={handleFilterChange}
+        >
+          <option value="">Seleccionar porte</option>
+          {getUniqueOptions.portes.map((porte) => (
+            <option key={porte} value={porte}>{porte}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="filter">
+        <label htmlFor="tamaño">Tamaño</label>
+        <select 
+          name="tamaño" 
+          id="tamaño" 
+          value={filters.tamaño} 
+          onChange={handleFilterChange}
+        >
+          <option value="">Seleccionar tamaño</option>
+          {getUniqueOptions.tamaños.map((tamaño) => (
+            <option key={tamaño} value={tamaño}>{tamaño}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="filter">
+        <label htmlFor="departamento">Departamento</label>
+        <select 
+          name="departamento" 
+          id="departamento" 
+          value={filters.departamento} 
+          onChange={handleFilterChange}
+        >
+          <option value="">Seleccionar departamento</option>
+          {getUniqueOptions.departamentos.map((departamento) => (
+            <option key={departamento} value={departamento}>{departamento}</option>
+          ))}
+        </select>
+      </div>
+
+      <button className="clear-filters-btn" onClick={clearFilters}>
+        Limpiar Filtros
+      </button>
     </aside>
   );
 };
 
-export default FilterPanel;
+export default CoffeeFilter;
