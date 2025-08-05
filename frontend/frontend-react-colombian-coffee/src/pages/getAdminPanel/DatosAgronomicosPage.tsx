@@ -16,7 +16,7 @@ export default function DatosAgronomicosComponent() {
   useEffect(() => {
     const fetchDatosAgronomicos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/datos_agronomicos');
+        const response = await axios.get('http://localhost:8080/datoAgro');
         setDatos(response.data);
       } catch (error) {
         console.error('Error al traer datos_agronomicos:', error);
@@ -28,7 +28,7 @@ export default function DatosAgronomicosComponent() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/datos_agronomicos/${id}`);
+      await axios.delete(`http://localhost:8080/datoAgro/${id}`);
       setDatos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);

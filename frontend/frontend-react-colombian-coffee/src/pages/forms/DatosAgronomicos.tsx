@@ -36,7 +36,7 @@ const DatosAgronomicosForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/datos_agronomicos', {
+      const response = await axios.post('http://localhost:8080/datoAgro', {
         tiempo_cosecha: tiempoCosecha,
         maduracion,
         nutricion,
