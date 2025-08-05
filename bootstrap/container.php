@@ -6,6 +6,8 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Modules\Condicion\Domain\Repositories\CondicionRepositoryInterface;
 use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionRepository;
+use App\Modules\DatosAgronomicos\Domain\Repositories\DatoAgroRepositoryInterface;
+use App\Modules\DatosAgronomicos\Infraestructure\Repositories\EloquentDatoAgroRepository;
 use App\Modules\Densidad\Domain\Repositories\DensidadRepositoryInterface;
 use App\Modules\Densidad\Infraestructure\Repositories\EloquentDensidadRepository;
 use App\Modules\Enfermedad\Domain\Repositories\EnfermedadRepositoryInterface;
@@ -79,6 +81,9 @@ $container->set(ResistenciaRepositoryInterface::class, function () {
     return new EloquentResistenciaRepository;
 });
 
+$container->set(DatoAgroRepositoryInterface::class, function () {
+    return new EloquentDatoAgroRepository;
+});
 
 
 // Handler
