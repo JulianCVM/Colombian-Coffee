@@ -21,7 +21,7 @@ export default function PotencialForm() {
   useEffect(() => {
     const fetchCondiciones = async () => {
       try {
-        const response = await axios.get<Condicion[]>('http://localhost:8080/condiciones');
+        const response = await axios.get<Condicion[]>('http://localhost:8080/condicion');
         setCondiciones(response.data);
       } catch (error) {
         console.error('Error al obtener condiciones:', error);

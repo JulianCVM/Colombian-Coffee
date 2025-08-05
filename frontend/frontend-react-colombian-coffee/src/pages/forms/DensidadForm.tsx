@@ -27,7 +27,7 @@ const DensidadForm = () => {
     const fetchOptions = async () => {
       try {
         const porteRes = await axios.get<Porte[]>('http://localhost:8080/porte');
-        const tamanhoRes = await axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho_grano');
+        const tamanhoRes = await axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho');
 
         setPorteOptions(porteRes.data);
         setTamanhoOptions(tamanhoRes.data);

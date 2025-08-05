@@ -17,6 +17,19 @@ import CalidadAltitudForm from './pages/forms/CalidadAltitud'
 import ResistenciaForm from './pages/forms/Resistencias'
 import DatosAgronomicosForm from './pages/forms/DatosAgronomicos'
 import VariedadForm from './pages/forms/VariedadForm'
+import CalidadAltitud from './pages/getAdminPanel/CalidadAltitud'
+import CalidadGranoList from './pages/getAdminPanel/CalidadGrano'
+import Condiciones from './pages/getAdminPanel/CondicionesPage'
+import DatosAgronomicosComponent from './pages/getAdminPanel/DatosAgronomicosPage'
+import DensidadList from './pages/getAdminPanel/DensidadPage'
+import Enfermedades from './pages/getAdminPanel/EnfermedadesPage'
+import HistoriaLinaje from './pages/getAdminPanel/HistoriaLinaje'
+import Porte from './pages/getAdminPanel/PortePage'
+import PotencialRendimiento from './pages/getAdminPanel/PotencialRendimiento'
+import Resistencias from './pages/getAdminPanel/ResistenciaPage'
+import TamanhoGrano from './pages/getAdminPanel/TamanhoPage'
+import UbicacionCard from './pages/getAdminPanel/UbicacionesPage'
+import VariedadComponent from './pages/getAdminPanel/VariedadPage'
 
 function App() {
 
@@ -27,6 +40,8 @@ function App() {
           <Route path='/' element={<Login></Login>}/>
           <Route path='/home' element={<HomePage></HomePage>}/>
           <Route path='/admin' element={<AdminPanel></AdminPanel>} />
+
+
           <Route path="/admin/add/historia" element={<HistoriaForm />} />
           <Route path="/admin/add/ubicacion" element={<UbicacionForm />} />
           <Route path="/admin/add/tamanho-grano" element={<TamanhoGranoForm />} />
@@ -40,6 +55,22 @@ function App() {
           <Route path="/admin/add/resistencias" element={<ResistenciaForm />} />
           <Route path="/admin/add/datos-agronomicos" element={<DatosAgronomicosForm />} />
           <Route path="/admin/add/variedad" element={<VariedadForm />} />
+
+
+          <Route path="/admin/get/calidad-altitud" element={<CalidadAltitud />} />
+          <Route path="/admin/get/calidad-grano" element={<CalidadGranoList />} />
+          <Route path="/admin/get/condiciones" element={<Condiciones />} />
+          <Route path="/admin/get/datos-agronomicos" element={<DatosAgronomicosComponent />} />
+          <Route path="/admin/get/densidad" element={<DensidadList />} />
+          <Route path="/admin/get/enfermedades" element={<Enfermedades />} />
+          <Route path="/admin/get/historia-linaje" element={<HistoriaLinaje />} />
+          <Route path="/admin/get/porte" element={<Porte />} />
+          <Route path="/admin/get/potencial" element={<PotencialRendimiento />} />
+          <Route path="/admin/get/resistencias" element={<Resistencias />} />
+          <Route path="/admin/get/tamanho" element={<TamanhoGrano />} />
+          <Route path="/admin/get/ubicaciones" element={<UbicacionCard />} />
+          <Route path="/admin/get/variedad" element={<VariedadComponent />} />
+
         </Routes>
       </BrowserRouter>
     </>

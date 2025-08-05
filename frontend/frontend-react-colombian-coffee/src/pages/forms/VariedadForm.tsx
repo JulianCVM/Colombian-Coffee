@@ -75,12 +75,12 @@ const VariedadForm = () => {
           historiaRes
         ] = await Promise.all([
           axios.get<Porte[]>('http://localhost:8080/porte'),
-          axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho_grano'),
-          axios.get<PotencialRendimiento[]>('http://localhost:8080/potencial_de_rendimiento'),
-          axios.get<CalidadAltitud[]>('http://localhost:8080/calidad_altitud'),
+          axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho'),
+          axios.get<PotencialRendimiento[]>('http://localhost:8080/potencial'),
+          axios.get<CalidadAltitud[]>('http://localhost:8080/calidadAlt'),
           axios.get<Resistencia[]>('http://localhost:8080/resistencias'),
-          axios.get<DatosAgronomicos[]>('http://localhost:8080/datos_agronomicos'),
-          axios.get<HistoriaLinaje[]>('http://localhost:8080/historia_linaje')
+          axios.get<DatosAgronomicos[]>('http://localhost:8080/datoAgro'),
+          axios.get<HistoriaLinaje[]>('http://localhost:8080/HistoriaLinaje')
         ]);
 
         setPorteOptions(porteRes.data);
