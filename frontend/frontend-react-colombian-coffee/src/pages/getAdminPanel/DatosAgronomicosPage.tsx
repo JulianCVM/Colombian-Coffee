@@ -94,7 +94,7 @@ export default function DatosAgronomicosComponent() {
               />
             </label>
             <label>
-              Densidad de siembra:
+              Densidad de siembra ID:
               <input
                 type="number"
                 value={formData.densidad_de_siembra}
@@ -113,7 +113,7 @@ export default function DatosAgronomicosComponent() {
           <p><strong>Tiempo de cosecha:</strong> {item.tiempo_cosecha}</p>
           <p><strong>Maduración:</strong> {item.maduracion}</p>
           <p><strong>Nutrición:</strong> {item.nutricion}</p>
-          <p><strong>Densidad de siembra:</strong> {item.densidad_de_siembra}</p>
+          <p><strong>Densidad de siembra (ID):</strong> {item.densidad_de_siembra}</p>
           <div className='button-group'>
             <button className='edit-button' onClick={() => handleEdit(item)}>Editar</button>
             <button className="delete-button" onClick={() => handleDelete(item.id)}>Eliminar</button>

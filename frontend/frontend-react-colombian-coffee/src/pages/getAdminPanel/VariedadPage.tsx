@@ -177,14 +177,14 @@ export default function VariedadCard() {
           <h2>{variedad.nombre_comun}</h2>
           <p><strong>Nombre científico:</strong> {variedad.nombre_cientifico}</p>
           <p><strong>Descripción general:</strong> {variedad.descripcion_general}</p>
-          <p><strong>Porte:</strong> {variedad.porte}</p>
-          <p><strong>Tamaño del grano:</strong> {variedad.tamanho_del_grano}</p>
+          <p><strong>Porte ID:</strong> {variedad.porte}</p>
+          <p><strong>Tamaño del grano ID:</strong> {variedad.tamanho_del_grano}</p>
           <p><strong>Altitud óptima de siembra:</strong> {variedad.altitud_optima_siembra} m</p>
-          <p><strong>Potencial de rendimiento:</strong> {variedad.potencial_de_rendimiento}</p>
-          <p><strong>Calidad grano-altitud:</strong> {variedad.calidad_grano_altitud}</p>
-          <p><strong>Resistencia:</strong> {variedad.resistencia}</p>
-          <p><strong>Datos agronómicos:</strong> {variedad.datos_agronomicos}</p>
-          <p><strong>Historia:</strong> {variedad.historia}</p>
+          <p><strong>Potencial de rendimiento ID:</strong> {variedad.potencial_de_rendimiento}</p>
+          <p><strong>Calidad grano-altitud ID:</strong> {variedad.calidad_grano_altitud}</p>
+          <p><strong>Resistencia ID:</strong> {variedad.resistencia}</p>
+          <p><strong>Datos agronómicos ID:</strong> {variedad.datos_agronomicos}</p>
+          <p><strong>Historia ID:</strong> {variedad.historia}</p>
           <div className='button-group'>
             <button className='edit-button' onClick={() => handleEdit(variedad)}>Editar</button>
             <button className="delete-button" onClick={() => handleDelete(variedad.id)}>Eliminar</button>

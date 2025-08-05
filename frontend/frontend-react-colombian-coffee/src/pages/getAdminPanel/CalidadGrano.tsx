@@ -103,7 +103,7 @@ export default function CalidadGranoCard() {
               />
             </label>
             <label>
-              Densidad:
+              Densidad (ID):
               <input
                 type="number"
                 value={formData.densidad}
@@ -145,7 +145,7 @@ export default function CalidadGranoCard() {
           <h2>Calidad: {grano.calidad}</h2>
           <p><strong>Aroma:</strong> {grano.aroma}</p>
           <p><strong>Sabor:</strong> {grano.sabor}</p>
-          <p><strong>Densidad:</strong> {grano.densidad}</p>
+          <p><strong>Densidad ID:</strong> {grano.densidad}</p>
           <p><strong>Humedad:</strong> {grano.humedad}</p>
           <p><strong>Tueste:</strong> {grano.tueste}</p>
           <p><strong>Origen (Ubicación ID):</strong> {grano.origen}</p>

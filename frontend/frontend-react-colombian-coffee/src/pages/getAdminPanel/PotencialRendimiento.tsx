@@ -78,7 +78,7 @@ export default function PotencialRendimientoCard() {
               />
             </label>
             <label>
-              Condición:
+              Condición ID:
               <input
                 type="number"
                 value={formData.condicion}
@@ -99,7 +99,7 @@ export default function PotencialRendimientoCard() {
         <div className="data-card" key={item.id}>
           <p><strong>ID:</strong> {item.id}</p>
           <p><strong>Potencial:</strong> {item.potencial}</p>
-          <p><strong>Condición:</strong> {item.condicion}</p>
+          <p><strong>Condición ID:</strong> {item.condicion}</p>
           <div className='button-group'>
             <button className='edit-button' onClick={() => handleEdit(item)}>Editar</button>
             <button className="delete-button" onClick={() => handleDelete(item.id)}>
