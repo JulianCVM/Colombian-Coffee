@@ -6,6 +6,8 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Modules\CalidadAltitud\Domain\Repositories\CalidadAltitudRepositoryInterface;
 use App\Modules\CalidadAltitud\Infraestructure\Repositories\EloquentCalidadAltitudRepository;
+use App\Modules\CalidadGrano\Domain\Repositories\CalidadGranoRepositoryInterface;
+use App\Modules\CalidadGrano\Infraestructure\Repositories\EloquentCalidadGranoRepository;
 use App\Modules\Condicion\Domain\Repositories\CondicionRepositoryInterface;
 use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionRepository;
 use App\Modules\DatosAgronomicos\Domain\Repositories\DatoAgroRepositoryInterface;
@@ -91,6 +93,9 @@ $container->set(CalidadAltitudRepositoryInterface::class, function () {
     return new EloquentCalidadAltitudRepository;
 });
 
+$container->set(CalidadGranoRepositoryInterface::class, function () {
+    return new EloquentCalidadGranoRepository;
+});
 
 // Handler
 

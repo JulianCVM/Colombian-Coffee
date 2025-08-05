@@ -19,7 +19,7 @@ export default function CalidadGranoList() {
   useEffect(() => {
     const fetchCalidadGrano = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/calidad_grano');
+        const response = await axios.get('http://localhost:8080/calidadG');
         setCalidadesGrano(response.data);
       } catch (error) {
         console.error('Error al traer calidad_grano:', error);
@@ -31,7 +31,7 @@ export default function CalidadGranoList() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/calidad_grano/${id}`);
+      await axios.delete(`http://localhost:8080/calidadG/${id}`);
       setCalidadesGrano(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
