@@ -34,7 +34,7 @@ export default function Porte() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {portes.map(porte => (
         <div className="data-card" key={porte.id}>
           <p><strong>ID:</strong> {porte.id}</p>

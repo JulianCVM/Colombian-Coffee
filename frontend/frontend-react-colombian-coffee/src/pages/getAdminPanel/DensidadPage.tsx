@@ -35,7 +35,7 @@ export default function DensidadList() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {densidades.map(densidad => (
         <div className="data-card" key={densidad.id}>
           <p><strong>ID:</strong> {densidad.id}</p>

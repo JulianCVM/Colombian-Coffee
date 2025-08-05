@@ -36,7 +36,7 @@ export default function DatosAgronomicosComponent() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {datos.map(item => (
         <div className="data-card" key={item.id}>
           <p><strong>ID:</strong> {item.id}</p>

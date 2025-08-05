@@ -34,7 +34,7 @@ export default function PotencialRendimiento() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {potenciales.map(item => (
         <div className="data-card" key={item.id}>
           <p><strong>ID:</strong> {item.id}</p>

@@ -35,7 +35,7 @@ export default function HistoriaLinaje() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {historiaLinajes.map(historia => (
         <div className="data-card" key={historia.id}>
           <p><strong>ID:</strong> {historia.id}</p>
