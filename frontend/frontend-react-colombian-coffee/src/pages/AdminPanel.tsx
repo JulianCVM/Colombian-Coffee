@@ -173,9 +173,9 @@ const AdminPanel = () => {
 
          <div className="form-cards-container">
           {[
-            { title: "Historia Linaje", icon: "📜", route: "/admin/get/historia-linaje", color: "rose" },
+            { title: "Historia Linaje", icon: "📜", route: "/admin/get/historia-linaje", color: "emerald" },
             { title: "Ubicaciones", icon: "📍", route: "/admin/get/ubicaciones", color: "orange" },
-            { title: "Condiciones", icon: "🌦️", route: "/admin/get/condiciones", color: "cyan" },
+            { title: "Condiciones", icon: "🌦️", route: "/admin/get/condiciones", color: "red" },
             { title: "Porte", icon: "🌱", route: "/admin/get/porte", color: "emerald" },
             { title: "Resistencias", icon: "🛡️", route: "/admin/get/resistencias", color: "green" },
             { title: "Variedades", icon: "☕", route: "/admin/get/variedades", color: "amber" },
@@ -184,8 +184,8 @@ const AdminPanel = () => {
             { title: "Potencial de rendimiento", icon: "📈", route: "/admin/get/potencial", color: "blue" },
             { title: "Calidad del grano", icon: "⭐", route: "/admin/get/calidad-grano", color: "yellow" },
             { title: "Datos agronómicos", icon: "📊", route: "/admin/get/datos-agronomicos", color: "teal" },
-            { title: "Tamaño del grano", icon: "🌾", route: "/admin/get/tamanho", color: "lime" },
-            { title: "Enfermedades", icon: "🦠", route: "/admin/get/enfermedades", color: "rose" }
+            { title: "Tamaño del grano", icon: "🌾", route: "/admin/get/tamanho", color: "purple" },
+            { title: "Enfermedades", icon: "🦠", route: "/admin/get/enfermedades", color: "amber" }
           ].map((item, index) => (
             <div
               key={index}
