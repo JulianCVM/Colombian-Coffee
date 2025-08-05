@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\Imagenes\Controllers;
+namespace App\Modules\Ubicacion\Controllers;
 
-use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
-use App\Modules\Imagenes\DTOs\ImagenDTO;
-use App\Modules\Imagenes\UseCases\CreateImagen;
-use App\Modules\Imagenes\UseCases\GetAllImagen;
-use App\Modules\Imagenes\UseCases\UpdateImagen;
-use App\Modules\TamanhoGrano\UseCases\DeleteTamanhoGrano;
+use App\Modules\Ubicacion\Domain\Repositories\UbicacionRepositoryInterface;
+use App\Modules\Ubicacion\DTOs\UbicacionDTO;
+use App\Modules\Ubicacion\UseCases\CreateUbicacion;
+use App\Modules\Ubicacion\UseCases\DeleteUbicacion;
+use App\Modules\Ubicacion\UseCases\GetAllUbicacion;
+use App\Modules\Ubicacion\UseCases\UpdateUbicacion;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class ImagenController
+class UbicacionController
 {
-    public function __construct(private ImagenRepositoryInterface $repo) {}
+    public function __construct(private UbicacionRepositoryInterface $repo) {}
 
 
     public function index(Request $request, Response $response): Response
     {
-        $useCase = new GetAllImagen($this->repo);
+        $useCase = new GetAllUbicacion($this->repo);
         $result = $useCase->execute();
         $response->getBody()->write(json_encode($result));
         return $response;
@@ -29,13 +29,13 @@ class ImagenController
     {
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = UbicacionDTO::fromArrayMapper($data);
 
-        $useCase = new CreateImagen($this->repo);
+        $useCase = new CreateUbicacion($this->repo);
         $result = $useCase->execute($dto);
         if (!$result) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo crear la imagen",
+                "error" => "No se pudo crear la ubicacion",
             ]));
             return $response->withStatus(400);
         }
@@ -55,13 +55,13 @@ class ImagenController
 
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = UbicacionDTO::fromArrayMapper($data);
 
-        $useCase = new UpdateImagen($this->repo);
+        $useCase = new UpdateUbicacion($this->repo);
         $success = $useCase->execute($id, $dto);
         if (!$success) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo actualizar la imagen, imagen no registrada en la plataforma",
+                "error" => "No se pudo actualizar la ubicacion, ubicacion no registrada en la plataforma",
             ]));
             return $response->withStatus(404);
         }
@@ -78,7 +78,7 @@ class ImagenController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $useCase = new DeleteTamanhoGrano($this->repo);
+        $useCase = new DeleteUbicacion($this->repo);
         $result = $useCase->execute($id);
 
         return $response->withStatus(200);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs;
+namespace App\Modules\Imagenes\DTOs;
 
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;

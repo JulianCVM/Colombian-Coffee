@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\Imagenes\Controllers;
+namespace App\Modules\Porte\Controllers;
 
-use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
-use App\Modules\Imagenes\DTOs\ImagenDTO;
-use App\Modules\Imagenes\UseCases\CreateImagen;
-use App\Modules\Imagenes\UseCases\GetAllImagen;
-use App\Modules\Imagenes\UseCases\UpdateImagen;
-use App\Modules\TamanhoGrano\UseCases\DeleteTamanhoGrano;
+use App\Modules\Porte\Domain\Repositories\PorteRepositoryInterface;
+use App\Modules\Porte\DTOs\PorteDTO;
+use App\Modules\Porte\UseCases\CreatePorte;
+use App\Modules\Porte\UseCases\DeletePorte;
+use App\Modules\Porte\UseCases\GetAllPorte;
+use App\Modules\Porte\UseCases\UpdatePorte;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class ImagenController
+class PorteController
 {
-    public function __construct(private ImagenRepositoryInterface $repo) {}
+    public function __construct(private PorteRepositoryInterface $repo) {}
 
 
     public function index(Request $request, Response $response): Response
     {
-        $useCase = new GetAllImagen($this->repo);
+        $useCase = new GetAllPorte($this->repo);
         $result = $useCase->execute();
         $response->getBody()->write(json_encode($result));
         return $response;
@@ -29,13 +29,13 @@ class ImagenController
     {
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = PorteDTO::fromArrayMapper($data);
 
-        $useCase = new CreateImagen($this->repo);
+        $useCase = new CreatePorte($this->repo);
         $result = $useCase->execute($dto);
         if (!$result) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo crear la imagen",
+                "error" => "No se pudo crear el porte",
             ]));
             return $response->withStatus(400);
         }
@@ -55,13 +55,13 @@ class ImagenController
 
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = PorteDTO::fromArrayMapper($data);
 
-        $useCase = new UpdateImagen($this->repo);
+        $useCase = new UpdatePorte($this->repo);
         $success = $useCase->execute($id, $dto);
         if (!$success) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo actualizar la imagen, imagen no registrada en la plataforma",
+                "error" => "No se pudo actualizar el porte, porte no registrada en la plataforma",
             ]));
             return $response->withStatus(404);
         }
@@ -78,7 +78,7 @@ class ImagenController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $useCase = new DeleteTamanhoGrano($this->repo);
+        $useCase = new DeletePorte($this->repo);
         $result = $useCase->execute($id);
 
         return $response->withStatus(200);

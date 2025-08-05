@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Infraestructure\Repositories;
+namespace App\Modules\Imagenes\Infraestructure\Repositories;
 
-use App\Domain\Models\Imagen;
-use App\Domain\Repositories\ImagenRepositoryInterface;
 use Exception;
-use App\DTOs\ImagenDTO;
-
+use App\Modules\Imagenes\Domain\Models\Imagen;
+use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
+use App\Modules\Imagenes\DTOs\ImagenDTO;
 
 // Este es el repository de donde se van a implementar todas las querys directas a la DB usando el ORM
 class EloquentImagenRepository implements ImagenRepositoryInterface

@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Modules\Imagenes\Controllers;
+namespace App\Modules\HistoriaLinaje\Controllers;
 
-use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
-use App\Modules\Imagenes\DTOs\ImagenDTO;
-use App\Modules\Imagenes\UseCases\CreateImagen;
-use App\Modules\Imagenes\UseCases\GetAllImagen;
-use App\Modules\Imagenes\UseCases\UpdateImagen;
-use App\Modules\TamanhoGrano\UseCases\DeleteTamanhoGrano;
+use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInterface;
+use App\Modules\HistoriaLinaje\DTOs\HistoriaLinajeDTO;
+use App\Modules\HistoriaLinaje\UseCases\CreateHistoriaLinaje;
+use App\Modules\HistoriaLinaje\UseCases\DeleteHistoriaLinaje;
+use App\Modules\HistoriaLinaje\UseCases\GetAllHistoriaLinaje;
+use App\Modules\HistoriaLinaje\UseCases\UpdateHistoriaLinaje;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class ImagenController
+class HistoriaLinajeController
 {
-    public function __construct(private ImagenRepositoryInterface $repo) {}
+    public function __construct(private HistoriaLinajeRepositoryInterface $repo) {}
 
 
     public function index(Request $request, Response $response): Response
     {
-        $useCase = new GetAllImagen($this->repo);
-        $result = $useCase->execute();
-        $response->getBody()->write(json_encode($result));
+        $useCase = new GetAllHistoriaLinaje($this->repo);
+        $historia = $useCase->execute();
+        $response->getBody()->write(json_encode($historia));
         return $response;
     }
 
@@ -29,17 +29,17 @@ class ImagenController
     {
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = HistoriaLinajeDTO::fromArrayMapper($data);
 
-        $useCase = new CreateImagen($this->repo);
-        $result = $useCase->execute($dto);
-        if (!$result) {
+        $useCase = new CreateHistoriaLinaje($this->repo);
+        $historia = $useCase->execute($dto);
+        if (!$historia) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo crear la imagen",
+                "error" => "No se pudo crear la historia",
             ]));
             return $response->withStatus(400);
         }
-        $response->getBody()->write(json_encode($result));
+        $response->getBody()->write(json_encode($historia));
         return $response->withStatus(201);
     }
 
@@ -55,13 +55,13 @@ class ImagenController
 
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = HistoriaLinajeDTO::fromArrayMapper($data);
 
-        $useCase = new UpdateImagen($this->repo);
+        $useCase = new UpdateHistoriaLinaje($this->repo);
         $success = $useCase->execute($id, $dto);
         if (!$success) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo actualizar la imagen, imagen no registrada en la plataforma",
+                "error" => "No se pudo actualizar la historia, historia no registrada en la plataforma",
             ]));
             return $response->withStatus(404);
         }
@@ -78,7 +78,7 @@ class ImagenController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $useCase = new DeleteTamanhoGrano($this->repo);
+        $useCase = new DeleteHistoriaLinaje($this->repo);
         $result = $useCase->execute($id);
 
         return $response->withStatus(200);

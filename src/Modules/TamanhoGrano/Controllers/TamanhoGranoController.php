@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Modules\Imagenes\Controllers;
+namespace App\Modules\TamanhoGrano\Controllers;
 
-use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
-use App\Modules\Imagenes\DTOs\ImagenDTO;
-use App\Modules\Imagenes\UseCases\CreateImagen;
-use App\Modules\Imagenes\UseCases\GetAllImagen;
-use App\Modules\Imagenes\UseCases\UpdateImagen;
+use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface;
+use App\Modules\TamanhoGrano\DTOs\TamanhoGranoDTO;
+use App\Modules\TamanhoGrano\UseCases\CreateTamanhoGrano;
 use App\Modules\TamanhoGrano\UseCases\DeleteTamanhoGrano;
+use App\Modules\TamanhoGrano\UseCases\GetAllTamanhoGrano;
+use App\Modules\TamanhoGrano\UseCases\UpdateTamanhoGrano;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-class ImagenController
+class TamanhoGranoController
 {
-    public function __construct(private ImagenRepositoryInterface $repo) {}
+    public function __construct(private TamanhoGranoRepositoryInterface $repo) {}
 
 
     public function index(Request $request, Response $response): Response
     {
-        $useCase = new GetAllImagen($this->repo);
+        $useCase = new GetAllTamanhoGrano($this->repo);
         $result = $useCase->execute();
         $response->getBody()->write(json_encode($result));
         return $response;
@@ -29,13 +29,13 @@ class ImagenController
     {
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = TamanhoGranoDTO::fromArrayMapper($data);
 
-        $useCase = new CreateImagen($this->repo);
+        $useCase = new CreateTamanhoGrano($this->repo);
         $result = $useCase->execute($dto);
         if (!$result) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo crear la imagen",
+                "error" => "No se pudo crear el tamanho del grano hermao caralho",
             ]));
             return $response->withStatus(400);
         }
@@ -55,13 +55,13 @@ class ImagenController
 
         $data = $request->getParsedBody();
 
-        $dto = ImagenDTO::fromArrayMapper($data);
+        $dto = TamanhoGranoDTO::fromArrayMapper($data);
 
-        $useCase = new UpdateImagen($this->repo);
+        $useCase = new UpdateTamanhoGrano($this->repo);
         $success = $useCase->execute($id, $dto);
         if (!$success) {
             $response->getBody()->write(json_encode([
-                "error" => "No se pudo actualizar la imagen, imagen no registrada en la plataforma",
+                "error" => "No se pudo actualizar el tamanho del grano, tamanho no registrada en la plataforma",
             ]));
             return $response->withStatus(404);
         }
