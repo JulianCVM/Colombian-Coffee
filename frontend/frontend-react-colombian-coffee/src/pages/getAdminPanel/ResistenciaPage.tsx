@@ -113,10 +113,12 @@ function ResistenciasCard() {
           <p><strong>Tipo:</strong> {resistencia.tipo}</p>
           <p><strong>Calidad Grano (ID):</strong> {resistencia.calidad_grano}</p>
           <p><strong>Enfermedad (ID):</strong> {resistencia.enfermedad}</p>
-          <button onClick={() => handleEdit(resistencia)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(resistencia.id)}>
-            Eliminar
-          </button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(resistencia)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(resistencia.id)}>
+              Eliminar
+            </button>
+          </div>
         </div>
       ))}
     </div>

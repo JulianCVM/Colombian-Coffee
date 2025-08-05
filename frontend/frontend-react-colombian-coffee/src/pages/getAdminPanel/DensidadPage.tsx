@@ -105,8 +105,10 @@ export default function DensidadList() {
           <p><strong>ID Porte:</strong> {densidad.porte}</p>
           <p><strong>ID Tamaño Grano:</strong> {densidad.tamanho_grano}</p>
           <p><strong>Valor Densidad:</strong> {densidad.valor_densidad}</p>
-          <button onClick={() => handleEdit(densidad)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(densidad.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(densidad)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(densidad.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

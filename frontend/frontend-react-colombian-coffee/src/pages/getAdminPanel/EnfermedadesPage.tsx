@@ -119,8 +119,10 @@ export default function Enfermedades() {
           <p><strong>Efectos:</strong> {e.efectos}</p>
           <p><strong>Gravedad:</strong> {e.gravedad}</p>
           <p><strong>Tratamiento:</strong> {e.tratamiento}</p>
-          <button onClick={() => handleEdit(e)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(e.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(e)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(e.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../../styles/GetAdmin.css';
 
 type Porte = {
   id: number;
@@ -105,8 +106,10 @@ export default function PorteCard() {
         <div key={porte.id} className="data-card">
           <h2>{porte.porte}</h2>
           <p><strong>Manejo del cultivo:</strong> {porte.manejo_cultivo}</p>
-          <button onClick={() => handleEdit(porte)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(porte.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(porte)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(porte.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

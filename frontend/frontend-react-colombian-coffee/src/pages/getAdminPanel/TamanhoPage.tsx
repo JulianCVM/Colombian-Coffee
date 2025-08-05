@@ -90,8 +90,10 @@ export default function TamanhoGranoCard() {
         <div className="data-card" key={tamanho.id}>
           <p><strong>ID:</strong> {tamanho.id}</p>
           <p><strong>Tamaño:</strong> {tamanho.tamanho}</p>
-          <button onClick={() => handleEdit(tamanho)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(tamanho.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(tamanho)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(tamanho.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

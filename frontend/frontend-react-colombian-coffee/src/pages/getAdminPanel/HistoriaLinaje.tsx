@@ -25,7 +25,7 @@ export default function HistoriaLinaje() {
 
   const fetchHistoriaLinaje = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/historia_linaje');
+      const response = await axios.get('http://localhost:8080/historia_linaje'); // Cambiar la url
       setHistoriaLinajes(response.data);
     } catch (error) {
       console.error('Error al traer historia_linaje:', error);
@@ -101,8 +101,10 @@ export default function HistoriaLinaje() {
           <p><strong>Obtenor:</strong> {historia.obtenor}</p>
           <p><strong>Familia:</strong> {historia.familia}</p>
           <p><strong>Grupo:</strong> {historia.grupo}</p>
-          <button onClick={() => handleEdit(historia)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(historia.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(historia)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(historia.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

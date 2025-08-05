@@ -127,8 +127,10 @@ export default function Condiciones() {
           <p><strong>Suelo:</strong> {cond.suelo}</p>
           <p><strong>Prácticas de cultivo:</strong> {cond.practicas_cultivo}</p>
           <p><strong>Temperatura:</strong> {cond.temperatura}</p>
-          <button onClick={() => handleEdit(cond)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(cond.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(cond)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(cond.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

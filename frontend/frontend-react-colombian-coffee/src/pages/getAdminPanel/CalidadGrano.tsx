@@ -30,7 +30,7 @@ export default function CalidadGranoCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/calidad_grano');
+        const res = await axios.get('http://localhost:8080/calidad_grano'); // Toca cambiar la ruta
         setCalidades(res.data);
       } catch (error) {
         console.error('Error al traer calidad_grano:', error);
@@ -149,8 +149,10 @@ export default function CalidadGranoCard() {
           <p><strong>Humedad:</strong> {grano.humedad}</p>
           <p><strong>Tueste:</strong> {grano.tueste}</p>
           <p><strong>Origen (Ubicación ID):</strong> {grano.origen}</p>
-          <button onClick={() => handleEdit(grano)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(grano.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(grano)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(grano.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

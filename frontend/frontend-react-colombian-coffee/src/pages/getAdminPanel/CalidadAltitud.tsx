@@ -23,7 +23,7 @@ export default function CalidadAltitud() {
   useEffect(() => {
     const fetchCalidades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/calidad_altitud');
+        const response = await axios.get('http://localhost:8080/calidad_altitud'); // Toca cambiar la ruta
         setCalidades(response.data);
       } catch (error) {
         console.error('Error al traer calidad_altitud:', error);
@@ -89,9 +89,10 @@ export default function CalidadAltitud() {
           <p><strong>ID:</strong> {calidad.id}</p>
           <p><strong>Ubicación (ID):</strong> {calidad.ubicacion}</p>
           <p><strong>Calidad:</strong> {calidad.calidad}</p>
-          <button onClick={() => handleEdit(calidad)}>Editar</button>
-          <button onClick={() => handleDelete(calidad.id)}>Eliminar</button>
-
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(calidad)}>Editar</button>
+            <button className='delete-button' onClick={() => handleDelete(calidad.id)}>Eliminar</button>
+          </div>
     </div>
     
 ))}

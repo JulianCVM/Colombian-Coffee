@@ -146,8 +146,10 @@ function UbicacionCard() {
           <p><strong>Altitud:</strong> {ubicacion.altitud}</p>
           <p><strong>Temperatura:</strong> {ubicacion.temperatura}</p>
           <p><strong>Práctica de cultivo:</strong> {ubicacion.practica_cultivo}</p>
-          <button onClick={() => handleEdit(ubicacion)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(ubicacion.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className="edit-button"onClick={() => handleEdit(ubicacion)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(ubicacion.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

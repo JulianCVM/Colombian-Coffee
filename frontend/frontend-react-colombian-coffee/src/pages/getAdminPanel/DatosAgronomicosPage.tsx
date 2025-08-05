@@ -114,8 +114,10 @@ export default function DatosAgronomicosComponent() {
           <p><strong>Maduración:</strong> {item.maduracion}</p>
           <p><strong>Nutrición:</strong> {item.nutricion}</p>
           <p><strong>Densidad de siembra:</strong> {item.densidad_de_siembra}</p>
-          <button onClick={() => handleEdit(item)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(item.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(item)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(item.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>

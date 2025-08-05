@@ -100,10 +100,12 @@ export default function PotencialRendimientoCard() {
           <p><strong>ID:</strong> {item.id}</p>
           <p><strong>Potencial:</strong> {item.potencial}</p>
           <p><strong>Condición:</strong> {item.condicion}</p>
-          <button onClick={() => handleEdit(item)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(item.id)}>
-            Eliminar
-          </button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(item)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(item.id)}>
+              Eliminar
+            </button>
+          </div>
         </div>
       ))}
     </div>

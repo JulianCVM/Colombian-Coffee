@@ -74,6 +74,7 @@ export default function VariedadCard() {
   return (
     <div className="data-card-container">
       {editando && (
+        
         <div className="edit-form">
           <h3>Editar Variedad</h3>
           <form onSubmit={handleSubmit}>
@@ -184,8 +185,10 @@ export default function VariedadCard() {
           <p><strong>Resistencia:</strong> {variedad.resistencia}</p>
           <p><strong>Datos agronómicos:</strong> {variedad.datos_agronomicos}</p>
           <p><strong>Historia:</strong> {variedad.historia}</p>
-          <button onClick={() => handleEdit(variedad)}>Editar</button>
-          <button className="delete-button" onClick={() => handleDelete(variedad.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(variedad)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(variedad.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>
