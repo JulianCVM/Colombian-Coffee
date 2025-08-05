@@ -34,7 +34,7 @@ export default function TamanhoGrano() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {tamanhos.map(tamanho => (
         <div className="data-card" key={tamanho.id}>
           <p><strong>ID:</strong> {tamanho.id}</p>

@@ -35,7 +35,7 @@ export default function Resistencias() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {resistencias.map(resistencia => (
         <div className="data-card" key={resistencia.id}>
           <p><strong>ID:</strong> {resistencia.id}</p>

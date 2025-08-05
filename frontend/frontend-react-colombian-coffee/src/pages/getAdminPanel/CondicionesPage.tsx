@@ -37,7 +37,7 @@ export default function Condiciones() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {condiciones.map(cond => (
         <div className="data-card" key={cond.id}>
           <p><strong>ID:</strong> {cond.id}</p>

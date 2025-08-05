@@ -13,15 +13,17 @@
   --shadow-hover: rgba(139, 69, 19, 0.25);
 }
 
+body {
+  background: linear-gradient(135deg, var(--warm-beige) 0%, var(--cream) 100%);
+
+}
 /* Contenedor principal */
 .data-card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+  justify-content: center; /* Centra los elementos */
   gap: 2rem;
   padding: 2.5rem;
-  background: linear-gradient(135deg, var(--warm-beige) 0%, var(--cream) 100%);
-  min-height: 100vh;
-  justify-items: center;
 }
 
 /* Tarjetas principales */
@@ -207,7 +209,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .data-card-container {
-    grid-template-columns: 1fr;
+    justify-content: center;
     padding: 1.5rem;
     gap: 1.5rem;
   }

@@ -36,7 +36,7 @@ export default function Enfermedades() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {enfermedades.map(e => (
         <div className="data-card" key={e.id}>
           <p><strong>ID:</strong> {e.id}</p>

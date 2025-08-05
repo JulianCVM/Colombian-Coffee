@@ -39,7 +39,7 @@ export default function CalidadGranoList() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {calidadesGrano.map(grano => (
         <div className="data-card" key={grano.id}>
           <p><strong>ID:</strong> {grano.id}</p>

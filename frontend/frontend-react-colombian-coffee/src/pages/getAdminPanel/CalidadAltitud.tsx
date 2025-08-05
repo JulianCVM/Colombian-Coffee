@@ -34,7 +34,7 @@ export default function CalidadAltitud() {
   };
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {calidades.map(calidad => (
         <div className="data-card" key={calidad.id}>
           <p><strong>ID:</strong> {calidad.id}</p>
