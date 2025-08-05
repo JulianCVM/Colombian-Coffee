@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type Variedad = {
   id: number;
@@ -22,7 +23,7 @@ export default function VariedadComponent() {
   useEffect(() => {
     const fetchVariedades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/variedades');
+        const response = await axios.get('http://localhost:8080/variedad');
         setVariedades(response.data);
       } catch (error) {
         console.error('Error al traer variedades:', error);
@@ -34,7 +35,7 @@ export default function VariedadComponent() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/variedades/${id}`);
+      await axios.delete(`http://localhost:8080/variedad/${id}`);
       setVariedades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar variedad:', error);

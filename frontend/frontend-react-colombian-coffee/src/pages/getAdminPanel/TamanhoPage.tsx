@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type TamanhoGrano = {
   id: number;
@@ -13,7 +14,7 @@ export default function TamanhoGrano() {
   useEffect(() => {
     const fetchTamanhos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/tamanho_grano');
+        const response = await axios.get('http://localhost:8080/tamanho');
         setTamanhos(response.data);
       } catch (error) {
         console.error('Error al traer tamanho_grano:', error);
@@ -25,7 +26,7 @@ export default function TamanhoGrano() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/tamanho_grano/${id}`);
+      await axios.delete(`http://localhost:8080/tamanho/${id}`);
       setTamanhos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);

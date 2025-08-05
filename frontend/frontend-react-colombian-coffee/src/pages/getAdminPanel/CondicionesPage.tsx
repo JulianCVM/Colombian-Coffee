@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type Condicion = {
   id: number;
@@ -16,7 +17,7 @@ export default function Condiciones() {
   useEffect(() => {
     const fetchCondiciones = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/condiciones');
+        const response = await axios.get('http://localhost:8080/condicion');
         setCondiciones(response.data);
       } catch (error) {
         console.error('Error al traer condiciones:', error);
@@ -28,7 +29,7 @@ export default function Condiciones() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/condiciones/${id}`);
+      await axios.delete(`http://localhost:8080/condicion/${id}`);
       setCondiciones(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
