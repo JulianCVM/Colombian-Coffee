@@ -190,6 +190,129 @@ body {
   box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4);
 }
 
+.edit-form {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-light);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 500px;
+  width: 100%;
+  border: 1px solid rgba(139, 69, 19, 0.08);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Título del formulario */
+.edit-form h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--orange-accent);
+  padding-bottom: 0.5rem;
+}
+
+/* Estilos de campos de entrada */
+.edit-form label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-medium);
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.edit-form input[type="text"] {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--light-brown);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--warm-beige);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-form input[type="text"]:focus {
+  border-color: var(--orange-accent);
+  outline: none;
+  box-shadow: 0 0 5px var(--shadow-hover);
+}
+
+/* Botones dentro del formulario */
+.edit-form button {
+  margin-top: 1.5rem;
+  margin-right: 1rem;
+  background: linear-gradient(135deg, var(--orange-accent), var(--secondary-brown));
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.edit-form button:hover {
+  background: linear-gradient(135deg, var(--secondary-brown), var(--primary-brown));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.4);
+}
+
+.edit-form button:active {
+  transform: translateY(0);
+}
+
+.edit-button {
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #2a9d8f, #2a9d8f); /* Verde azulado */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.edit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.edit-button:hover::before {
+  left: 100%;
+}
+
+.edit-button:hover {
+  background: linear-gradient(135deg, #9be2d3, #2a9d8f); /* degradado al hacer hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 157, 143, 0.4);
+}
+
+.edit-button:active {
+  transform: translateY(0);
+}
+
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+}
+
 /* Animación de entrada */
 @keyframes fadeInUp {
   from {
@@ -212,6 +335,14 @@ body {
     justify-content: center;
     padding: 1.5rem;
     gap: 1.5rem;
+  }
+
+  .edit-form {
+    padding: 1.5rem;
+  }
+
+  .edit-form h3 {
+    font-size: 1.25rem;
   }
   
   .data-card {

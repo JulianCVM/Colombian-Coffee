@@ -69,7 +69,7 @@ function App() {
           <Route path="/admin/get/resistencias" element={<Resistencias />} />
           <Route path="/admin/get/tamanho" element={<TamanhoGrano />} />
           <Route path="/admin/get/ubicaciones" element={<UbicacionCard />} />
-          <Route path="/admin/get/variedades" element={<VariedadComponent />} />
+          <Route path="/admin/get/variedad" element={<VariedadComponent />} />
 
         </Routes>
       </BrowserRouter>

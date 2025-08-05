@@ -10,6 +10,15 @@ type CalidadAltitud = {
 
 export default function CalidadAltitud() {
   const [calidades, setCalidades] = useState<CalidadAltitud[]>([]);
+  const [editando, setEditando] = useState<CalidadAltitud | null>(null);
+  const [formData, setFormData] = useState<CalidadAltitud>({ id: 0, ubicacion: 0, calidad: '' });
+
+
+  const handleEdit = (calidad: CalidadAltitud) => {
+    setEditando(calidad);
+    setFormData(calidad);
+  };
+  
 
   useEffect(() => {
     const fetchCalidades = async () => {
@@ -33,16 +42,61 @@ export default function CalidadAltitud() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await axios.put(`http://localhost:8080/calidad_altitud/${formData.id}`, formData);
+      setCalidades(prev =>
+        prev.map(item => item.id === formData.id ? formData : item)
+      );
+      setEditando(null);
+    } catch (error) {
+      console.error('Error al editar:', error);
+    }
+  };
+  
+
   return (
     <div className="data-card-container">
+      {editando && (
+        <div className="edit-form">
+          <h3>Editar Calidad</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Ubicación (ID):
+              <input
+              type="number"
+              value={formData.ubicacion}
+              onChange={(e) => setFormData({ ...formData, ubicacion: Number(e.target.value) })}
+              />
+            </label>
+            <label>
+              Calidad:
+              <input
+                type="text"
+                value={formData.calidad}
+                onChange={(e) => setFormData({ ...formData, calidad: e.target.value })}
+              />
+            </label>
+            <button type="submit">Guardar cambios</button>
+            <button type="button" onClick={() => setEditando(null)}>Cancelar</button>
+          </form>
+  </div>
+)}
+
       {calidades.map(calidad => (
         <div className="data-card" key={calidad.id}>
           <p><strong>ID:</strong> {calidad.id}</p>
           <p><strong>Ubicación (ID):</strong> {calidad.ubicacion}</p>
           <p><strong>Calidad:</strong> {calidad.calidad}</p>
-          <button className="delete-button" onClick={() => handleDelete(calidad.id)}>Eliminar</button>
-        </div>
-      ))}
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(calidad)}>Editar</button>
+            <button className='delete-button' onClick={() => handleDelete(calidad.id)}>Eliminar</button>
+          </div>
+    </div>
+    
+))}
+
     </div>
   );
 }

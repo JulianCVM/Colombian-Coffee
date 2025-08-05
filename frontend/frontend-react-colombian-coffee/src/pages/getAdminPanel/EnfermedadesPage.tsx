@@ -12,6 +12,14 @@ type Enfermedad = {
 
 export default function Enfermedades() {
   const [enfermedades, setEnfermedades] = useState<Enfermedad[]>([]);
+  const [editando, setEditando] = useState<Enfermedad | null>(null);
+  const [formData, setFormData] = useState<Enfermedad>({
+    id: 0,
+    nombre: '',
+    efectos: '',
+    gravedad: '',
+    tratamiento: '',
+  });
 
   useEffect(() => {
     const fetchEnfermedades = async () => {
@@ -35,8 +43,75 @@ export default function Enfermedades() {
     }
   };
 
+  const handleEdit = (enfermedad: Enfermedad) => {
+    setEditando(enfermedad);
+    setFormData(enfermedad);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/enfermedades/${formData.id}`,
+        formData
+      );
+      if (response.status === 200) {
+        setEnfermedades(prev =>
+          prev.map(e => (e.id === formData.id ? formData : e))
+        );
+        setEditando(null);
+      } else {
+        console.error('Error al actualizar enfermedad');
+      }
+    } catch (error) {
+      console.error('Error en PUT:', error);
+    }
+  };
+
   return (
     <div className="data-card-container">
+      {editando && (
+        <div className="edit-form">
+          <h3>Editar Enfermedad</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nombre:
+              <input
+                type="text"
+                value={formData.nombre}
+                onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+              />
+            </label>
+            <label>
+              Efectos:
+              <input
+                type="text"
+                value={formData.efectos}
+                onChange={(e) => setFormData({ ...formData, efectos: e.target.value })}
+              />
+            </label>
+            <label>
+              Gravedad:
+              <input
+                type="text"
+                value={formData.gravedad}
+                onChange={(e) => setFormData({ ...formData, gravedad: e.target.value })}
+              />
+            </label>
+            <label>
+              Tratamiento:
+              <input
+                type="text"
+                value={formData.tratamiento}
+                onChange={(e) => setFormData({ ...formData, tratamiento: e.target.value })}
+              />
+            </label>
+            <button type="submit">Guardar cambios</button>
+            <button type="button" onClick={() => setEditando(null)}>Cancelar</button>
+          </form>
+        </div>
+      )}
+
       {enfermedades.map(e => (
         <div className="data-card" key={e.id}>
           <p><strong>ID:</strong> {e.id}</p>
@@ -44,7 +119,10 @@ export default function Enfermedades() {
           <p><strong>Efectos:</strong> {e.efectos}</p>
           <p><strong>Gravedad:</strong> {e.gravedad}</p>
           <p><strong>Tratamiento:</strong> {e.tratamiento}</p>
-          <button className="delete-button" onClick={() => handleDelete(e.id)}>Eliminar</button>
+          <div className='button-group'>
+            <button className='edit-button' onClick={() => handleEdit(e)}>Editar</button>
+            <button className="delete-button" onClick={() => handleDelete(e.id)}>Eliminar</button>
+          </div>
         </div>
       ))}
     </div>
