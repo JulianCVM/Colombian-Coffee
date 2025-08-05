@@ -7,6 +7,9 @@ import CoffeeFilter from '../components/filters/CoffeeFilter';
 import ApiData from '../components/apiData/ApiData';
 import ColombianMap from '../components/map/ColombianMap';
 import '../styles/Map.css';
+import Pagination from '../components/Pagination.tsx'
+
+
 
 function HomePage() {
   const [allCoffees, setAllCoffees] = useState<Data>([]);
@@ -14,6 +17,14 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [showMap, setShowMap] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 6;
+
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCoffees = filteredCoffees.slice(indexOfFirstCard, indexOfLastCard);
+  const totalPages = Math.ceil(filteredCoffees.length / cardsPerPage);
+  
   useEffect(() => {
     getDataList()
       .then((data) => {
@@ -27,9 +38,14 @@ function HomePage() {
       });
   }, []);
 
+  
+
+
   const handleFiltersChange = (filtered: Data) => {
     setFilteredCoffees(filtered);
+    setCurrentPage(1); 
   };
+  
 
   const handleDepartmentSelect = (department: string) => {
     // Filtrar por el departamento seleccionado
@@ -86,7 +102,15 @@ function HomePage() {
               />
             </div>
           ) : (
-            <ApiData filteredCoffees={filteredCoffees} />
+            <>
+              <ApiData filteredCoffees={currentCoffees} />
+              <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                onPageChange={(page) => setCurrentPage(page)} 
+              />
+            </>
+
           )}
         </section>
       </div>
