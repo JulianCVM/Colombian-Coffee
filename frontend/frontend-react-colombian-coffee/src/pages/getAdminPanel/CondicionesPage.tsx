@@ -12,6 +12,15 @@ type Condicion = {
 
 export default function Condiciones() {
   const [condiciones, setCondiciones] = useState<Condicion[]>([]);
+  const [editando, setEditando] = useState<Condicion | null>(null);
+  const [formData, setFormData] = useState<Condicion>({
+    id: 0,
+    genetica: '',
+    clima: '',
+    suelo: '',
+    practicas_cultivo: '',
+    temperatura: '',
+  });
 
   useEffect(() => {
     const fetchCondiciones = async () => {
@@ -35,8 +44,80 @@ export default function Condiciones() {
     }
   };
 
+  const handleEdit = (cond: Condicion) => {
+    setEditando(cond);
+    setFormData(cond);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await axios.put(`http://localhost:8080/condiciones/${formData.id}`, formData);
+      if (res.status === 200) {
+        setCondiciones(prev =>
+          prev.map(item => (item.id === formData.id ? formData : item))
+        );
+        setEditando(null);
+      } else {
+        console.error('Error al actualizar');
+      }
+    } catch (error) {
+      console.error('Error al editar:', error);
+    }
+  };
+
   return (
     <div className="data-container">
+      {editando && (
+        <div className="edit-form">
+          <h3>Editar Condición</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Genética:
+              <input
+                type="text"
+                value={formData.genetica}
+                onChange={(e) => setFormData({ ...formData, genetica: e.target.value })}
+              />
+            </label>
+            <label>
+              Clima:
+              <input
+                type="text"
+                value={formData.clima}
+                onChange={(e) => setFormData({ ...formData, clima: e.target.value })}
+              />
+            </label>
+            <label>
+              Suelo:
+              <input
+                type="text"
+                value={formData.suelo}
+                onChange={(e) => setFormData({ ...formData, suelo: e.target.value })}
+              />
+            </label>
+            <label>
+              Prácticas de cultivo:
+              <input
+                type="text"
+                value={formData.practicas_cultivo}
+                onChange={(e) => setFormData({ ...formData, practicas_cultivo: e.target.value })}
+              />
+            </label>
+            <label>
+              Temperatura:
+              <input
+                type="text"
+                value={formData.temperatura}
+                onChange={(e) => setFormData({ ...formData, temperatura: e.target.value })}
+              />
+            </label>
+            <button type="submit">Guardar cambios</button>
+            <button type="button" onClick={() => setEditando(null)}>Cancelar</button>
+          </form>
+        </div>
+      )}
+
       {condiciones.map(cond => (
         <div className="data-card" key={cond.id}>
           <p><strong>ID:</strong> {cond.id}</p>
@@ -45,6 +126,7 @@ export default function Condiciones() {
           <p><strong>Suelo:</strong> {cond.suelo}</p>
           <p><strong>Prácticas de cultivo:</strong> {cond.practicas_cultivo}</p>
           <p><strong>Temperatura:</strong> {cond.temperatura}</p>
+          <button onClick={() => handleEdit(cond)}>Editar</button>
           <button className="delete-button" onClick={() => handleDelete(cond.id)}>Eliminar</button>
         </div>
       ))}
