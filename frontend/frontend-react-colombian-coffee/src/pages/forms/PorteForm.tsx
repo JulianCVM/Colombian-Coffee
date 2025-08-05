@@ -3,12 +3,9 @@ import axios from 'axios';
 import '../../styles/FormsTemplate.css';
 import { useNavigate } from 'react-router-dom';
 
-
-const HistoriaForm = () => {
-  const [obtenor, setObtenor] = useState('');
-  const [familia, setFamilia] = useState('');
-  const [grupo, setGrupo] = useState('');
-
+const PorteForm = () => {
+  const [porte, setPorte] = useState('');
+  const [manejoCultivo, setManejoCultivo] = useState('');
   const navigate = useNavigate();
 
   const handleCancel = () => {
@@ -23,12 +20,10 @@ const HistoriaForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:8080/historia', {
-        obtenor,
-        familia,
-        grupo
+      const response = await axios.post('http://localhost:8080/porte', {
+        porte,
+        manejo_cultivo: manejoCultivo
       });
       alert(response.data.message);
     } catch (error) {
@@ -39,52 +34,41 @@ const HistoriaForm = () => {
 
   return (
     <div className="historia-form-container">
-      <h2>🧬 Historia de Linaje</h2>
+      <h2>🌿 Porte de la Planta</h2>
       <p className="subtitle">
-        Ingresa los datos históricos y genéticos de la variedad de café.
+        Ingresa la altura y el manejo agronómico del porte de la planta.
       </p>
 
       <form onSubmit={handleSubmit} className="historia-form">
         <div className="form-group">
-          <label>Obtenor *</label>
+          <label>Porte *</label>
           <input
             type="text"
-            value={obtenor}
-            onChange={(e) => setObtenor(capitalizar(e.target.value))}
-            placeholder="ej. Cenicafé"
+            value={porte}
+            onChange={(e) => setPorte(capitalizar(e.target.value))}
+            placeholder="ej. Alto, Medio, Bajo"
             required
           />
         </div>
 
         <div className="form-group">
-          <label>Familia *</label>
+          <label>Manejo del Cultivo *</label>
           <input
             type="text"
-            value={familia}
-            onChange={(e) => setFamilia(capitalizar(e.target.value))}
-            placeholder="ej. Bourbon"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Grupo Genético</label>
-          <input
-            type="text"
-            value={grupo}
-            onChange={(e) => setGrupo(capitalizar(e.target.value))}
-            placeholder="ej. Arábica tradicional"
+            value={manejoCultivo}
+            onChange={(e) => setManejoCultivo(capitalizar(e.target.value))}
+            placeholder="ej. Requiere podas frecuentes"
             required
           />
         </div>
 
         <div className="form-buttons">
-        <button type="button" className="cancel-btn" onClick={handleCancel}>
+          <button type="button" className="cancel-btn" onClick={handleCancel}>
             Cancelar
-        </button>
+          </button>
 
           <button type="submit" className="submit-btn">
-            💾 Guardar Historia
+            💾 Guardar Porte
           </button>
         </div>
       </form>
@@ -92,4 +76,4 @@ const HistoriaForm = () => {
   );
 };
 
-export default HistoriaForm;
+export default PorteForm;
