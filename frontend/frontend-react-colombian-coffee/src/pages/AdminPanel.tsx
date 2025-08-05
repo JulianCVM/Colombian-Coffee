@@ -9,7 +9,6 @@ const AdminPanel = () => {
       icon: "📜",
       color: "emerald",
       route: "/admin/add/historia",
-      status: "Verde"
     },
     {
       title: "Ubicaciones", 
@@ -17,7 +16,6 @@ const AdminPanel = () => {
       icon: "📍",
       color: "orange",
       route: "/admin/add/ubicacion",
-      status: "Pergamino"
     },
     {
       title: "Tamaño de Grano",
@@ -25,7 +23,6 @@ const AdminPanel = () => {
       icon: "⚖️",
       color: "red",
       route: "/admin/add/tamanho-grano",
-      status: "Seleccionado"
     },
     {
       title: "Porte",
@@ -33,7 +30,6 @@ const AdminPanel = () => {
       icon: "🌱",
       color: "emerald", 
       route: "/admin/add/porte",
-      status: "En Desarrollo"
     },
     {
       title: "Condiciones de Cultivo",
@@ -41,7 +37,6 @@ const AdminPanel = () => {
       icon: "🌡️",
       color: "blue",
       route: "/admin/add/condiciones",
-      status: "Verde"
     },
     {
       title: "Enfermedades",
@@ -49,7 +44,6 @@ const AdminPanel = () => {
       icon: "🔬",
       color: "pink",
       route: "/admin/add/enfermedad",
-      status: "En Riesgo"
     },
     {
       title: "Densidad del grano", 
@@ -57,7 +51,6 @@ const AdminPanel = () => {
       icon: "⏱️",
       color: "purple",
       route: "/admin/add/densidad",
-      status: "Cereza Madura"
     },
     {
       title: "Potencial de rendimiento",
@@ -65,7 +58,6 @@ const AdminPanel = () => {
       icon: "📈",
       color: "purple",
       route: "/admin/add/potencial-de-rendimiento",
-      status: "Proyección"
     },
     {
       title: "Calidad del grano",
@@ -73,7 +65,6 @@ const AdminPanel = () => {
       icon: "⭐",
       color: "yellow",
       route: "/admin/add/calidad-de-grano",
-      status: "Óptima"
     },
     {
       title: "Calidad por altitud",
@@ -81,7 +72,6 @@ const AdminPanel = () => {
       icon: "🏔️",
       color: "indigo", 
       route: "/admin/add/calidad-por-altitud",
-      status: "Calculado"
     },
     {
       title: "Resistencias",
@@ -89,7 +79,6 @@ const AdminPanel = () => {
       icon: "🛡️",
       color: "green",
       route: "/admin/add/resistencias",
-      status: "Variable"
     },
     {
       title: "Datos agronómicos", 
@@ -97,7 +86,6 @@ const AdminPanel = () => {
       icon: "📊",
       color: "teal",
       route: "/admin/add/datos-agronomicos",
-      status: "Diagnóstico"
     },
     {
       title: "Variedad",
@@ -105,7 +93,6 @@ const AdminPanel = () => {
       icon: "☕",
       color: "amber",
       route: "/admin/add/variedad",
-      status: "Óptima"
     }
   ];
 
@@ -151,10 +138,6 @@ const AdminPanel = () => {
               className={`form-card card-${card.color}`}
               style={{animationDelay: `${index * 0.1}s`}}
             >
-              {/* Status badge */}
-              <div className="card-status">
-                <span>{card.status}</span>
-              </div>
 
               {/* Icon */}
               <div className={`card-icon icon-${card.color}`}>
@@ -179,13 +162,54 @@ const AdminPanel = () => {
           ))}
         </div>
 
-        {/* Footer info */}
-        <div className="admin-footer">
-          <div className="footer-info">
-            <span>🖥️</span>
-            <span>Console</span>
+        
+
+        <div className="section-header">
+          <div className="section-icon">
+            <span>🔎</span>
           </div>
+          <h2>GET de Tablas</h2>
         </div>
+
+         <div className="form-cards-container">
+          {[
+            { title: "Historia Linaje", icon: "📜", route: "/admin/get/historia-linaje", color: "rose" },
+            { title: "Ubicaciones", icon: "📍", route: "/admin/get/ubicaciones", color: "orange" },
+            { title: "Condiciones", icon: "🌦️", route: "/admin/get/condiciones", color: "cyan" },
+            { title: "Porte", icon: "🌱", route: "/admin/get/porte", color: "emerald" },
+            { title: "Resistencias", icon: "🛡️", route: "/admin/get/resistencias", color: "green" },
+            { title: "Variedades", icon: "☕", route: "/admin/get/variedades", color: "amber" },
+            { title: "Densidad", icon: "⚖️", route: "/admin/get/densidad", color: "purple" },
+            { title: "Calidad por altitud", icon: "🏔️", route: "/admin/get/calidad-altitud", color: "indigo" },
+            { title: "Potencial de rendimiento", icon: "📈", route: "/admin/get/potencial", color: "blue" },
+            { title: "Calidad del grano", icon: "⭐", route: "/admin/get/calidad-grano", color: "yellow" },
+            { title: "Datos agronómicos", icon: "📊", route: "/admin/get/datos-agronomicos", color: "teal" },
+            { title: "Tamaño del grano", icon: "🌾", route: "/admin/get/tamanho", color: "lime" },
+            { title: "Enfermedades", icon: "🦠", route: "/admin/get/enfermedades", color: "rose" }
+          ].map((item, index) => (
+            <div
+              key={index}
+              className={`form-card card-${item.color}`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className={`card-icon icon-${item.color}`}>
+                <span>{item.icon}</span>
+              </div>
+
+              <div className="card-content">
+                <h3>{item.title}</h3>
+                <p>Visualiza los datos almacenados en esta tabla</p>
+                <Link to={item.route} className={`add-button btn-${item.color}`}>
+                  <span>👁️</span>
+                  <span>Ver Datos</span>
+                </Link>
+              </div>
+
+              <div className="card-hover-line"></div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   );
