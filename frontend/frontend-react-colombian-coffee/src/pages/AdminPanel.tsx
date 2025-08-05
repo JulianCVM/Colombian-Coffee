@@ -109,7 +109,7 @@ const AdminPanel = () => {
     { title: "Condiciones", icon: Cloud, route: "/admin/get/condiciones" },
     { title: "Porte", icon: Sprout, route: "/admin/get/porte" },
     { title: "Resistencias", icon: Shield, route: "/admin/get/resistencias" },
-    { title: "Variedades", icon: Coffee, route: "/admin/get/variedades" },
+    { title: "Variedades", icon: Coffee, route: "/admin/get/variedad" },
     { title: "Densidad", icon: Scale, route: "/admin/get/densidad" },
     { title: "Calidad por altitud", icon: Mountain, route: "/admin/get/calidad-altitud" },
     { title: "Potencial de rendimiento", icon: TrendingUp, route: "/admin/get/potencial" },
