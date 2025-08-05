@@ -18,6 +18,8 @@ use App\Modules\Porte\Domain\Repositories\PorteRepositoryInterface;
 use App\Modules\Porte\Repositories\EloquentPorteRepository;
 use App\Modules\PotencialDeRendimiento\Domain\Repositories\PotencialDeRendimientoRepositoryInterface;
 use App\Modules\PotencialDeRendimiento\Repositories\EloquentPotencialDeRendimientoRepository;
+use App\Modules\Resistencia\Domain\Repositories\ResistenciaRepositoryInterface;
+use App\Modules\Resistencia\Infraestructure\Repositories\EloquentResistenciaRepository;
 use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface;
 use App\Modules\TamanhoGrano\Repositories\EloquentTamanhoGranoRepository;
 use App\Modules\Ubicacion\Domain\Repositories\UbicacionRepositoryInterface;
@@ -72,6 +74,12 @@ $container->set(EnfermedadRepositoryInterface::class, function () {
 $container->set(DensidadRepositoryInterface::class, function () {
     return new EloquentDensidadRepository;
 });
+
+$container->set(ResistenciaRepositoryInterface::class, function () {
+    return new EloquentResistenciaRepository;
+});
+
+
 
 // Handler
 
