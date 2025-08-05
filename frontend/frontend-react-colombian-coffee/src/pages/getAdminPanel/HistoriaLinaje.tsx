@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type HistoriaLinaje = {
   id: number;
@@ -33,7 +34,7 @@ export default function HistoriaLinaje() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/historia_linaje/${id}`);
+      await axios.delete(`http://localhost:8080/HistoriaLinaje/${id}`);
       setHistoriaLinajes(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);

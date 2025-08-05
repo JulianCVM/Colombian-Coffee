@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type PotencialRendimiento = {
   id: number;
@@ -19,7 +20,7 @@ export default function PotencialRendimientoCard() {
   useEffect(() => {
     const fetchPotenciales = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/potencial_rendimiento');
+        const response = await axios.get('http://localhost:8080/potencial');
         setPotenciales(response.data);
       } catch (error) {
         console.error('Error al traer potencial_rendimiento:', error);

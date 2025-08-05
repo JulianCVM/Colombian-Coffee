@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Scroll, 
@@ -17,11 +18,15 @@ import {
   Search,
   Cloud,
   Wheat,
-  Bug
+  Bug,
+  Plus,
+  Eye
 } from 'lucide-react';
 import '../styles/AdminPanel.css';
 
 const AdminPanel = () => {
+  const [activeTab, setActiveTab] = useState('forms');
+
   const formCards = [
     {
       title: "Historia de Linaje",
@@ -119,6 +124,44 @@ const AdminPanel = () => {
     { title: "Enfermedades", icon: Bug, route: "/admin/get/enfermedades" }
   ];
 
+  const renderCards = (cards, type) => {
+    return cards.map((card, index) => {
+      const IconComponent = card.icon;
+      return (
+        <div
+          key={index}
+          className={`form-card ${type === 'forms' ? 'form-card-add' : 'form-card-view'}`}
+          style={{animationDelay: `${index * 0.05}s`}}
+        >
+          <div className="card-icon-wrapper">
+            <div className="card-icon">
+              <IconComponent size={24} />
+            </div>
+          </div>
+          
+          <div className="card-content">
+            <h3>{card.title}</h3>
+            <p>{card.description || 'Visualiza los datos almacenados en esta tabla'}</p>
+            
+            <Link to={card.route} className="add-button">
+              {type === 'forms' ? (
+                <>
+                  <Plus size={16} className="button-icon" />
+                  Agregar Nuevo
+                </>
+              ) : (
+                <>
+                  <Eye size={16} className="button-icon" />
+                  Ver Datos
+                </>
+              )}
+            </Link>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="admin-panel">
       {/* Header */}
@@ -135,80 +178,52 @@ const AdminPanel = () => {
       </div>
 
       <div className="admin-content">
-        {/* Formularios Disponibles */}
-        <div className="section">
-          <div className="section-header">
-            <div className="section-icon">
+        {/* Tab Navigation */}
+        <div className="tab-navigation">
+          <div className="tab-buttons">
+            <button
+              className={`tab-button ${activeTab === 'forms' ? 'active' : ''}`}
+              onClick={() => setActiveTab('forms')}
+            >
               <ClipboardList size={20} />
-            </div>
-            <h2>Formularios Disponibles</h2>
-          </div>
-
-          <div className="form-cards-container">
-            {formCards.map((card, index) => {
-              const IconComponent = card.icon;
-              return (
-                <div
-                  key={index}
-                  className="form-card form-card-add"
-                  style={{animationDelay: `${index * 0.1}s`}}
-                >
-                  <div className="card-icon-wrapper">
-                    <div className="card-icon">
-                      <IconComponent size={24} />
-                    </div>
-                  </div>
-                  
-                  <div className="card-content">
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
-                    
-                    <Link to={card.route} className="add-button">
-                      Agregar Nuevo
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
+              <span>Formularios Disponibles</span>
+              <div className="tab-indicator"></div>
+            </button>
+            
+            <button
+              className={`tab-button ${activeTab === 'tables' ? 'active' : ''}`}
+              onClick={() => setActiveTab('tables')}
+            >
+              <Search size={20} />
+              <span>Consultar Tablas</span>
+              <div className="tab-indicator"></div>
+            </button>
           </div>
         </div>
 
-        {/* Consultar Tablas */}
-        <div className="section">
-          <div className="section-header">
-            <div className="section-icon">
-              <Search size={20} />
+        {/* Tab Content */}
+        <div className="tab-content">
+          {activeTab === 'forms' && (
+            <div className="tab-panel active" id="forms-panel">
+              <div className="section-description">
+                <p>Gestiona y agrega nueva información a las diferentes categorías del catálogo de café</p>
+              </div>
+              <div className="form-cards-container">
+                {renderCards(formCards, 'forms')}
+              </div>
             </div>
-            <h2>Consultar Tablas</h2>
-          </div>
+          )}
 
-          <div className="form-cards-container">
-            {getCards.map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={index}
-                  className="form-card form-card-view"
-                  style={{animationDelay: `${index * 0.1}s`}}
-                >
-                  <div className="card-icon-wrapper">
-                    <div className="card-icon">
-                      <IconComponent size={24} />
-                    </div>
-                  </div>
-                  
-                  <div className="card-content">
-                    <h3>{item.title}</h3>
-                    <p>Visualiza los datos almacenados en esta tabla</p>
-                    
-                    <Link to={item.route} className="add-button">
-                      Ver Datos
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          {activeTab === 'tables' && (
+            <div className="tab-panel active" id="tables-panel">
+              <div className="section-description">
+                <p>Consulta y visualiza todos los datos almacenados en las diferentes tablas del sistema</p>
+              </div>
+              <div className="form-cards-container">
+                {renderCards(getCards, 'tables')}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

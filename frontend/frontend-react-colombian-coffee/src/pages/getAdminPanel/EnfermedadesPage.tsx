@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type Enfermedad = {
   id: number;
@@ -23,7 +24,7 @@ export default function Enfermedades() {
   useEffect(() => {
     const fetchEnfermedades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/enfermedades');
+        const response = await axios.get('http://localhost:8080/enfermedad');
         setEnfermedades(response.data);
       } catch (error) {
         console.error('Error al traer enfermedades:', error);
@@ -35,7 +36,7 @@ export default function Enfermedades() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/enfermedades/${id}`);
+      await axios.delete(`http://localhost:8080/enfermedad/${id}`);
       setEnfermedades(prev => prev.filter(e => e.id !== id));
     } catch (error) {
       console.error('Error al eliminar enfermedad:', error);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type CalidadGrano = {
   id: number;
@@ -72,7 +73,7 @@ export default function CalidadGranoCard() {
   };
 
   return (
-    <div className="data-card-container">
+    <div className="data-card-card-container">
       {editando && (
         <div className="edit-form">
           <h3>Editar Calidad de Grano</h3>

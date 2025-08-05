@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../styles/GetAdmin.css';
 
 type CalidadAltitud = {
   id: number;
@@ -56,7 +57,7 @@ export default function CalidadAltitud() {
   
 
   return (
-    <div className="data-container">
+    <div className="data-card-container">
       {editando && (
         <div className="edit-form">
           <h3>Editar Calidad</h3>

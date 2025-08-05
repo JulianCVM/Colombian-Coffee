@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../../styles/GetAdmin.css';
 
 interface Ubicacion {
   id: number;
