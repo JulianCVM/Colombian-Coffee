@@ -35,6 +35,7 @@ try {
     (require_once __DIR__ . '/src/Modules/Ubicacion/routes/ubicacion.php')($app);
     (require_once __DIR__ . '/src/Modules/Porte/routes/porte.php')($app);
     (require_once __DIR__ . '/src/Modules/Enfermedad/routes/enfermedad.php')($app);
+    (require_once __DIR__ . '/src/Modules/Densidad/routes/densidad.php')($app);
 
     // Configurar manejo de errores
     // $errorHandler = $app->addErrorMiddleware(true, true, true);

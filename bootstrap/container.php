@@ -6,6 +6,8 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
 use App\Modules\Condicion\Domain\Repositories\CondicionRepositoryInterface;
 use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionRepository;
+use App\Modules\Densidad\Domain\Repositories\DensidadRepositoryInterface;
+use App\Modules\Densidad\Infraestructure\Repositories\EloquentDensidadRepository;
 use App\Modules\Enfermedad\Domain\Repositories\EnfermedadRepositoryInterface;
 use App\Modules\Enfermedad\Infraestructure\Repositories\EloquentEnfermedadRepository;
 use App\Modules\HistoriaLinaje\Domain\Repositories\HistoriaLinajeRepositoryInterface;
@@ -65,6 +67,10 @@ $container->set(PorteRepositoryInterface::class, function () {
 
 $container->set(EnfermedadRepositoryInterface::class, function () {
     return new EloquentEnfermedadRepository;
+});
+
+$container->set(DensidadRepositoryInterface::class, function () {
+    return new EloquentDensidadRepository;
 });
 
 // Handler
