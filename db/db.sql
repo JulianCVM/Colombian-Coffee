@@ -7,7 +7,7 @@ USE coffee;
 CREATE TABLE imagenes (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    contenido BLOB NOT NULL
+    contenido LONGBLOB NOT NULL
 );
 
 CREATE TABLE historia_linaje (
