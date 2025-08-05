@@ -14,7 +14,7 @@ export default function CalidadAltitud() {
   useEffect(() => {
     const fetchCalidades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/calidad_altitud');
+        const response = await axios.get('http://localhost:8080/calidadAlt');
         setCalidades(response.data);
       } catch (error) {
         console.error('Error al traer calidad_altitud:', error);
@@ -26,7 +26,7 @@ export default function CalidadAltitud() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/calidad_altitud/${id}`);
+      await axios.delete(`http://localhost:8080/calidadAlt/${id}`);
       setCalidades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);

@@ -4,6 +4,8 @@ use DI\Container;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use App\Handler\CustomErrorHandler;
+use App\Modules\CalidadAltitud\Domain\Repositories\CalidadAltitudRepositoryInterface;
+use App\Modules\CalidadAltitud\Infraestructure\Repositories\EloquentCalidadAltitudRepository;
 use App\Modules\Condicion\Domain\Repositories\CondicionRepositoryInterface;
 use App\Modules\Condicion\Infraestructure\Repositories\EloquentCondicionRepository;
 use App\Modules\DatosAgronomicos\Domain\Repositories\DatoAgroRepositoryInterface;
@@ -83,6 +85,10 @@ $container->set(ResistenciaRepositoryInterface::class, function () {
 
 $container->set(DatoAgroRepositoryInterface::class, function () {
     return new EloquentDatoAgroRepository;
+});
+
+$container->set(CalidadAltitudRepositoryInterface::class, function () {
+    return new EloquentCalidadAltitudRepository;
 });
 
 
