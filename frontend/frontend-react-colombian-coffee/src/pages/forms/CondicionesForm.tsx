@@ -26,7 +26,7 @@ const CondicionesForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/condiciones', {
+      const response = await axios.post('http://localhost:8080/condicion', {
         genetica,
         clima,
         suelo,

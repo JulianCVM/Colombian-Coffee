@@ -25,7 +25,7 @@ export default function HistoriaLinaje() {
 
   const fetchHistoriaLinaje = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/historia_linaje'); // Cambiar la url
+      const response = await axios.get('http://localhost:8080/HistoriaLinaje'); // Ya ajustada
       setHistoriaLinajes(response.data);
     } catch (error) {
       console.error('Error al traer historia_linaje:', error);
@@ -49,7 +49,7 @@ export default function HistoriaLinaje() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/historia_linaje/${formData.id}`, formData);
+      await axios.put(`http://localhost:8080/HistoriaLinaje/${formData.id}`, formData);
       setHistoriaLinajes(prev =>
         prev.map(item => (item.id === formData.id ? formData : item))
       );

@@ -20,7 +20,7 @@ const TamanhoGranoForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/tamanho_grano', {
+      const response = await axios.post('http://localhost:8080/tamanho', {
         tamanho
       });
       alert(response.data.message);

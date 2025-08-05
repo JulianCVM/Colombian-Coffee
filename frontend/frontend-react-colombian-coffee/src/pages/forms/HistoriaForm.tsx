@@ -25,7 +25,7 @@ const HistoriaForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/historia', {
+      const response = await axios.post('http://localhost:8080/HistoriaLinaje', {
         obtenor,
         familia,
         grupo

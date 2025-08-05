@@ -53,7 +53,7 @@ export default function Condiciones() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/condiciones/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/condicion/${formData.id}`, formData);
       if (res.status === 200) {
         setCondiciones(prev =>
           prev.map(item => (item.id === formData.id ? formData : item))

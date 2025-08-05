@@ -34,7 +34,7 @@ const CalidadAltitudForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/calidad_altitud', {
+      const response = await axios.post('http://localhost:8080/calidadAlt', {
         ubicacion: parseInt(ubicacion, 10),
         calidad,
       });

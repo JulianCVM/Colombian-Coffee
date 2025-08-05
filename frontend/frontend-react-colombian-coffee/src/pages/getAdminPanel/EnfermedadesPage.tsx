@@ -52,7 +52,7 @@ export default function Enfermedades() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8080/enfermedades/${formData.id}`,
+        `http://localhost:8080/enfermedad/${formData.id}`,
         formData
       );
       if (response.status === 200) {

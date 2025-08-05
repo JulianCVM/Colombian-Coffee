@@ -46,7 +46,7 @@ export default function TamanhoGranoCard() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8080/tamanho_grano/${formData.id}`,
+        `http://localhost:8080/tamanho/${formData.id}`,
         formData
       );
       if (response.status === 200) {

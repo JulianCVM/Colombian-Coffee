@@ -45,7 +45,7 @@ export default function CalidadAltitud() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/calidad_altitud/${formData.id}`, formData);
+      await axios.put(`http://localhost:8080/calidadAlt/${formData.id}`, formData);
       setCalidades(prev =>
         prev.map(item => item.id === formData.id ? formData : item)
       );

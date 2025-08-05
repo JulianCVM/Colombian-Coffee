@@ -30,7 +30,7 @@ export default function CalidadGranoCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/calidadG'); // Toca cambiar la ruta
+        const res = await axios.get('http://localhost:8080/calidadG'); // Ya queda ajustada la ruta
         setCalidades(res.data);
       } catch (error) {
         console.error('Error al traer calidad_grano:', error);
@@ -57,7 +57,7 @@ export default function CalidadGranoCard() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/calidad_grano/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/calidadG/${formData.id}`, formData);
 
       if (res.status === 200) {
         setCalidades(prev =>

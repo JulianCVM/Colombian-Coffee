@@ -27,8 +27,8 @@ const ResistenciaForm = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const calidadRes = await axios.get<CalidadGrano[]>('http://localhost:8080/calidad_grano');
-        const enfermedadRes = await axios.get<Enfermedad[]>('http://localhost:8080/enfermedades');
+        const calidadRes = await axios.get<CalidadGrano[]>('http://localhost:8080/calidadG');
+        const enfermedadRes = await axios.get<Enfermedad[]>('http://localhost:8080/enfermedad');
 
         setCalidadOptions(calidadRes.data);
         setEnfermedadOptions(enfermedadRes.data);

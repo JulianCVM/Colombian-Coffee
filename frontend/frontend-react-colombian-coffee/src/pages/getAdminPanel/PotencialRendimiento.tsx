@@ -32,7 +32,7 @@ export default function PotencialRendimientoCard() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/potencial_rendimiento/${id}`);
+      await axios.delete(`http://localhost:8080/potencial/${id}`);
       setPotenciales((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -48,7 +48,7 @@ export default function PotencialRendimientoCard() {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8080/potencial_rendimiento/${formData.id}`,
+        `http://localhost:8080/potencial/${formData.id}`,
         formData
       );
 

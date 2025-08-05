@@ -51,7 +51,7 @@ export default function DatosAgronomicosComponent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/datos_agronomicos/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/datoAgro/${formData.id}`, formData);
       if (res.status === 200) {
         setDatos(prev => prev.map(d => d.id === formData.id ? formData : d));
         setEditando(null);
