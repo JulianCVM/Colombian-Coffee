@@ -19,10 +19,16 @@ export default function DensidadList() {
     valor_densidad: 0,
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchDensidades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/densidad');
+        const response = await axios.get('http://localhost:8080/densidad', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setDensidades(response.data);
       } catch (error) {
         console.error('Error al traer densidades:', error);
@@ -34,7 +40,11 @@ export default function DensidadList() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/densidad/${id}`);
+      await axios.delete(`http://localhost:8080/densidad/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setDensidades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar densidad:', error);
@@ -49,7 +59,11 @@ export default function DensidadList() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:8080/densidad/${formData.id}`, formData);
+      const response = await axios.put(`http://localhost:8080/densidad/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (response.status === 200) {
         setDensidades(prev =>
           prev.map(item => (item.id === formData.id ? formData : item))

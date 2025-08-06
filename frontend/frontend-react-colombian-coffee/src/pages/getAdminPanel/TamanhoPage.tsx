@@ -15,10 +15,16 @@ export default function TamanhoGranoCard() {
     tamanho: '',
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchTamanhos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/tamanho');
+        const response = await axios.get('http://localhost:8080/tamanho', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setTamanhos(response.data);
       } catch (error) {
         console.error('Error al traer tamanho_grano:', error);
@@ -30,7 +36,11 @@ export default function TamanhoGranoCard() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/tamanho/${id}`);
+      await axios.delete(`http://localhost:8080/tamanho/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setTamanhos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -47,7 +57,11 @@ export default function TamanhoGranoCard() {
     try {
       const response = await axios.put(
         `http://localhost:8080/tamanho/${formData.id}`,
-        formData
+        formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       if (response.status === 200) {
         setTamanhos(prev =>

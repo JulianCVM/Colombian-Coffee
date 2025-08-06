@@ -1,5 +1,7 @@
 <?php
 
+use App\Middleware\AuthMiddleware;
+use App\Middleware\RoleMiddleware;
 use App\Modules\Ubicacion\Controllers\UbicacionController;
 use Slim\App;
 
@@ -10,5 +12,6 @@ return function (App $app) {
         $group->post('', [UbicacionController::class, 'store']);
         $group->put('/{id}', [UbicacionController::class, 'update']);
         $group->delete('/{id}', [UbicacionController::class, 'destroy']);
-    });
+    })->add(new RoleMiddleware('admin'))
+        ->add(new AuthMiddleware());
 };

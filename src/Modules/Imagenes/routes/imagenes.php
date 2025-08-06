@@ -2,6 +2,8 @@
 
 namespace App\Modules\Imagenes\routes;
 
+use App\Middleware\AuthMiddleware;
+use App\Middleware\RoleMiddleware;
 use App\Modules\Imagenes\Controllers\ImagenController;
 use Slim\App;
 
@@ -13,5 +15,6 @@ return function (App $app) {
         $group->post('', [ImagenController::class, 'store']);
         $group->put('/{id}', [ImagenController::class, 'update']);
         $group->delete('/{id}', [ImagenController::class, 'destroy']);
-    });
+    })->add(new RoleMiddleware('admin'))
+        ->add(new AuthMiddleware());
 };

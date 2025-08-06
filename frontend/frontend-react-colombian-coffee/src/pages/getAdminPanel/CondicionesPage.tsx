@@ -23,10 +23,16 @@ export default function Condiciones() {
     temperatura: '',
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchCondiciones = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/condicion');
+        const response = await axios.get('http://localhost:8080/condicion', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setCondiciones(response.data);
       } catch (error) {
         console.error('Error al traer condiciones:', error);
@@ -38,7 +44,11 @@ export default function Condiciones() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/condicion/${id}`);
+      await axios.delete(`http://localhost:8080/condicion/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setCondiciones(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -53,7 +63,11 @@ export default function Condiciones() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/condicion/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/condicion/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (res.status === 200) {
         setCondiciones(prev =>
           prev.map(item => (item.id === formData.id ? formData : item))

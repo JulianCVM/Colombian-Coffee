@@ -21,10 +21,16 @@ export default function DatosAgronomicosComponent() {
     densidad_de_siembra: 0,
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchDatosAgronomicos = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/datoAgro');
+        const response = await axios.get('http://localhost:8080/datoAgro', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setDatos(response.data);
       } catch (error) {
         console.error('Error al traer datos_agronomicos:', error);
@@ -36,7 +42,11 @@ export default function DatosAgronomicosComponent() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/datoAgro/${id}`);
+      await axios.delete(`http://localhost:8080/datoAgro/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setDatos(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -51,7 +61,11 @@ export default function DatosAgronomicosComponent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/datoAgro/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/datoAgro/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       if (res.status === 200) {
         setDatos(prev => prev.map(d => d.id === formData.id ? formData : d));
         setEditando(null);

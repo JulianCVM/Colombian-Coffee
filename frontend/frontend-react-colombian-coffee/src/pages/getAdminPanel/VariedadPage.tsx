@@ -17,6 +17,8 @@ type Variedad = {
   historia: string | number;
 };
 
+const token = localStorage.getItem("token");
+
 export default function VariedadCard() {
   const [variedades, setVariedades] = useState<Variedad[]>([]);
   const [editando, setEditando] = useState<Variedad | null>(null);
@@ -36,7 +38,11 @@ export default function VariedadCard() {
   });
 
   useEffect(() => {
-    axios.get('http://localhost:8080/variedad')
+    axios.get('http://localhost:8080/variedad', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
 
       .then((res) => {
         console.log(res.data);
@@ -46,7 +52,11 @@ export default function VariedadCard() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/variedad/${id}`);
+      await axios.delete(`http://localhost:8080/variedad/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setVariedades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar variedad:', error);
@@ -61,7 +71,11 @@ export default function VariedadCard() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/variedad/${formData.id}`, formData);
+      await axios.put(`http://localhost:8080/variedad/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setVariedades(prev =>
         prev.map(item => item.id === formData.id ? formData : item)
       );

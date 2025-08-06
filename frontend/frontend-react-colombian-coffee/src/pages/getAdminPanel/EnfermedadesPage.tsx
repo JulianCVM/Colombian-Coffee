@@ -21,10 +21,16 @@ export default function Enfermedades() {
     tratamiento: '',
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchEnfermedades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/enfermedad');
+        const response = await axios.get('http://localhost:8080/enfermedad', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setEnfermedades(response.data);
       } catch (error) {
         console.error('Error al traer enfermedades:', error);
@@ -36,7 +42,11 @@ export default function Enfermedades() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/enfermedad/${id}`);
+      await axios.delete(`http://localhost:8080/enfermedad/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setEnfermedades(prev => prev.filter(e => e.id !== id));
     } catch (error) {
       console.error('Error al eliminar enfermedad:', error);
@@ -53,7 +63,11 @@ export default function Enfermedades() {
     try {
       const response = await axios.put(
         `http://localhost:8080/enfermedad/${formData.id}`,
-        formData
+        formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       if (response.status === 200) {
         setEnfermedades(prev =>

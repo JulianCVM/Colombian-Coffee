@@ -26,11 +26,17 @@ export default function CalidadGranoCard() {
     tueste: '',
     origen: 0,
   });
+  
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/calidadG'); // Ya queda ajustada la ruta
+        const res = await axios.get('http://localhost:8080/calidadG', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }); // Ya queda ajustada la ruta
         setCalidades(res.data);
       } catch (error) {
         console.error('Error al traer calidad_grano:', error);
@@ -42,7 +48,11 @@ export default function CalidadGranoCard() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/calidadG/${id}`);
+      await axios.delete(`http://localhost:8080/calidadG/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setCalidades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -57,7 +67,11 @@ export default function CalidadGranoCard() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:8080/calidadG/${formData.id}`, formData);
+      const res = await axios.put(`http://localhost:8080/calidadG/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       if (res.status === 200) {
         setCalidades(prev =>

@@ -19,16 +19,26 @@ function ResistenciasCard() {
     enfermedad: 0,
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     axios
-      .get('http://localhost:8080/resistencias')
+      .get('http://localhost:8080/resistencias', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((res) => setResistencias(res.data))
       .catch((error) => console.error('Error al obtener resistencias:', error));
   }, []);
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/resistencias/${id}`);
+      await axios.delete(`http://localhost:8080/resistencias/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setResistencias((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -45,7 +55,11 @@ function ResistenciasCard() {
     try {
       await axios.put(
         `http://localhost:8080/resistencias/${formData.id}`,
-        formData
+        formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       setResistencias((prev) =>

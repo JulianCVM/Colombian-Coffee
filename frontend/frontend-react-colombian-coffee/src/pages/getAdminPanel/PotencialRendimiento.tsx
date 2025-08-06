@@ -17,10 +17,16 @@ export default function PotencialRendimientoCard() {
     condicion: 0,
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchPotenciales = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/potencial');
+        const response = await axios.get('http://localhost:8080/potencial', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setPotenciales(response.data);
       } catch (error) {
         console.error('Error al traer potencial_rendimiento:', error);
@@ -32,7 +38,11 @@ export default function PotencialRendimientoCard() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/potencial/${id}`);
+      await axios.delete(`http://localhost:8080/potencial/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setPotenciales((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -49,7 +59,11 @@ export default function PotencialRendimientoCard() {
     try {
       await axios.put(
         `http://localhost:8080/potencial/${formData.id}`,
-        formData
+        formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       setPotenciales((prev) =>
