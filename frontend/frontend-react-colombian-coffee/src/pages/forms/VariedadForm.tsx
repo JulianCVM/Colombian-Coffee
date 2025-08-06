@@ -37,6 +37,7 @@ interface HistoriaLinaje {
   id: number;
   origen: string;
 }
+const token = localStorage.getItem("token");
 
 const VariedadForm = () => {
   const [nombreComun, setNombreComun] = useState('');
@@ -74,13 +75,41 @@ const VariedadForm = () => {
           agronomicosRes,
           historiaRes
         ] = await Promise.all([
-          axios.get<Porte[]>('http://localhost:8080/porte'),
-          axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho'),
-          axios.get<PotencialRendimiento[]>('http://localhost:8080/potencial'),
-          axios.get<CalidadAltitud[]>('http://localhost:8080/calidadAlt'),
-          axios.get<Resistencia[]>('http://localhost:8080/resistencias'),
-          axios.get<DatosAgronomicos[]>('http://localhost:8080/datoAgro'),
-          axios.get<HistoriaLinaje[]>('http://localhost:8080/HistoriaLinaje')
+          axios.get<Porte[]>('http://localhost:8080/porte', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<PotencialRendimiento[]>('http://localhost:8080/potencial', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<CalidadAltitud[]>('http://localhost:8080/calidadAlt', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<Resistencia[]>('http://localhost:8080/resistencias', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<DatosAgronomicos[]>('http://localhost:8080/datoAgro', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get<HistoriaLinaje[]>('http://localhost:8080/HistoriaLinaje', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
         ]);
 
         setPorteOptions(porteRes.data);
@@ -117,6 +146,10 @@ const VariedadForm = () => {
         resistencia: parseInt(resistencia),
         datos_agronomicos: parseInt(datosAgronomicos),
         historia: parseInt(historia)
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(res.data.message || 'Variedad guardada correctamente');
       setNombreComun('');

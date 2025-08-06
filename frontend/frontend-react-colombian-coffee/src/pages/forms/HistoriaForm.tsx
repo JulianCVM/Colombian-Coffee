@@ -3,12 +3,10 @@ import axios from 'axios';
 import '../../styles/FormsTemplate.css';
 import { useNavigate } from 'react-router-dom';
 
-
 const HistoriaForm = () => {
   const [obtenor, setObtenor] = useState('');
   const [familia, setFamilia] = useState('');
   const [grupo, setGrupo] = useState('');
-
   const navigate = useNavigate();
 
   const handleCancel = () => {
@@ -24,16 +22,40 @@ const HistoriaForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("No se encontró el token. Por favor inicia sesión nuevamente.");
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:8080/HistoriaLinaje', {
-        obtenor,
-        familia,
-        grupo
-      });
-      alert(response.data.message);
-    } catch (error) {
+      const response = await axios.post(
+        'http://localhost:8080/HistoriaLinaje',
+        {
+          obtenor: obtenor.trim(),
+          familia: familia.trim(),
+          grupo: grupo.trim()
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      const message = response.data?.message || "Historia registrada correctamente.";
+      alert(message);
+      navigate("/admin");
+
+    } catch (error: any) {
       console.error('Error al enviar datos:', error);
-      alert('Hubo un error al enviar los datos');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data?.message || 'Error en el servidor.');
+      } else {
+        alert('Hubo un error al enviar los datos');
+      }
     }
   };
 
@@ -68,7 +90,7 @@ const HistoriaForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Grupo Genético</label>
+          <label>Grupo Genético *</label>
           <input
             type="text"
             value={grupo}
@@ -79,9 +101,9 @@ const HistoriaForm = () => {
         </div>
 
         <div className="form-buttons">
-        <button type="button" className="cancel-btn" onClick={handleCancel}>
+          <button type="button" className="cancel-btn" onClick={handleCancel}>
             Cancelar
-        </button>
+          </button>
 
           <button type="submit" className="submit-btn">
             💾 Guardar Historia

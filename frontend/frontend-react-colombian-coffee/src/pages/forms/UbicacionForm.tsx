@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../../styles/FormsTemplate.css'; 
 import { useNavigate } from 'react-router-dom';
 
-
 const UbicacionForm = () => {
   const [departamento, setDepartamento] = useState('');
   const [clima, setClima] = useState('');
@@ -27,19 +26,39 @@ const UbicacionForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("No se encontró el token. Por favor inicia sesión nuevamente.");
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8080/ubicacion', {
-        departamento,
-        clima,
-        suelo,
-        altitud,
-        temperatura,
-        practica_cultivo: practicaCultivo
+        departamento: departamento.trim(),
+        clima: clima.trim(),
+        suelo: suelo.trim(),
+        altitud: altitud.trim(),
+        temperatura: temperatura.trim(),
+        practica_cultivo: practicaCultivo.trim()
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
       });
-      alert(response.data.message);
-    } catch (error) {
+
+      const message = response.data?.message || "Ubicación registrada exitosamente.";
+      alert(message);
+      navigate("/admin");
+
+    } catch (error: any) {
       console.error('Error al enviar datos:', error);
-      alert('Hubo un error al enviar los datos');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data?.message || 'Error en el servidor.');
+      } else {
+        alert('Hubo un error al enviar los datos');
+      }
     }
   };
 
@@ -89,7 +108,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={altitud}
-            onChange={(e) => setAltitud(capitalizar(e.target.value))}
+            onChange={(e) => setAltitud(e.target.value)}
             placeholder="ej. 1,200 - 1,800 msnm"
             required
           />
@@ -100,7 +119,7 @@ const UbicacionForm = () => {
           <input
             type="text"
             value={temperatura}
-            onChange={(e) => setTemperatura(capitalizar(e.target.value))}
+            onChange={(e) => setTemperatura(e.target.value)}
             placeholder="ej. 18-22°C"
             required
           />

@@ -13,6 +13,7 @@ interface Enfermedad {
   id: number;
   nombre: string;
 }
+const token = localStorage.getItem("token");
 
 const ResistenciaForm = () => {
   const [calidadOptions, setCalidadOptions] = useState<CalidadGrano[]>([]);
@@ -27,8 +28,16 @@ const ResistenciaForm = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const calidadRes = await axios.get<CalidadGrano[]>('http://localhost:8080/calidadG');
-        const enfermedadRes = await axios.get<Enfermedad[]>('http://localhost:8080/enfermedad');
+        const calidadRes = await axios.get<CalidadGrano[]>('http://localhost:8080/calidadG', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const enfermedadRes = await axios.get<Enfermedad[]>('http://localhost:8080/enfermedad', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
         setCalidadOptions(calidadRes.data);
         setEnfermedadOptions(enfermedadRes.data);
@@ -50,6 +59,10 @@ const ResistenciaForm = () => {
         tipo,
         calidad_grano: parseInt(calidadGrano, 10),
         enfermedad: parseInt(enfermedad, 10),
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message || 'Resistencia guardada correctamente');
       setTipo('');

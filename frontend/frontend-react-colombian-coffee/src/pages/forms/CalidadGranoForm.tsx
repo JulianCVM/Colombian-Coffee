@@ -12,6 +12,7 @@ interface Ubicacion {
   id: number;
   departamento: string;
 }
+const token = localStorage.getItem("token");
 
 const CalidadGranoForm = () => {
   const [densidadOptions, setDensidadOptions] = useState<Densidad[]>([]);
@@ -30,8 +31,16 @@ const CalidadGranoForm = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const densidadRes = await axios.get<Densidad[]>('http://localhost:8080/densidad');
-        const ubicacionRes = await axios.get<Ubicacion[]>('http://localhost:8080/ubicacion');
+        const densidadRes = await axios.get<Densidad[]>('http://localhost:8080/densidad', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const ubicacionRes = await axios.get<Ubicacion[]>('http://localhost:8080/ubicacion', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setDensidadOptions(densidadRes.data);
         setUbicacionOptions(ubicacionRes.data);
       } catch (error) {
@@ -56,6 +65,10 @@ const CalidadGranoForm = () => {
         tueste,
         densidad: parseInt(densidad, 10),
         origen: parseInt(origen, 10),
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message || 'Calidad del grano guardada correctamente');
       setCalidad('');

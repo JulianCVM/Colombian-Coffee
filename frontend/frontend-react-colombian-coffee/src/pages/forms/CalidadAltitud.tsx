@@ -7,6 +7,7 @@ interface Ubicacion {
   id: number;
   departamento: string;
 }
+const token = localStorage.getItem("token");
 
 const CalidadAltitudForm = () => {
   const [ubicacionOptions, setUbicacionOptions] = useState<Ubicacion[]>([]);
@@ -18,7 +19,11 @@ const CalidadAltitudForm = () => {
   useEffect(() => {
     const fetchUbicaciones = async () => {
       try {
-        const res = await axios.get<Ubicacion[]>('http://localhost:8080/ubicacion');
+        const res = await axios.get<Ubicacion[]>('http://localhost:8080/ubicacion', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setUbicacionOptions(res.data);
       } catch (error) {
         console.error('Error al cargar ubicaciones:', error);
@@ -37,6 +42,10 @@ const CalidadAltitudForm = () => {
       const response = await axios.post('http://localhost:8080/calidadAlt', {
         ubicacion: parseInt(ubicacion, 10),
         calidad,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message || 'Calidad por altitud guardada correctamente');
       setUbicacion('');

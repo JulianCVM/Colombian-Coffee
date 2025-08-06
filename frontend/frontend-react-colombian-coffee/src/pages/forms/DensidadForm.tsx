@@ -12,6 +12,7 @@ interface TamanhoGrano {
   id: number;
   tamanho: string;
 }
+const token = localStorage.getItem("token");
 
 const DensidadForm = () => {
   const [porteOptions, setPorteOptions] = useState<Porte[]>([]);
@@ -26,8 +27,16 @@ const DensidadForm = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const porteRes = await axios.get<Porte[]>('http://localhost:8080/porte');
-        const tamanhoRes = await axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho');
+        const porteRes = await axios.get<Porte[]>('http://localhost:8080/porte', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const tamanhoRes = await axios.get<TamanhoGrano[]>('http://localhost:8080/tamanho', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
         setPorteOptions(porteRes.data);
         setTamanhoOptions(tamanhoRes.data);
@@ -49,6 +58,10 @@ const DensidadForm = () => {
         porte: parseInt(porte, 10),
         tamanho_grano: parseInt(tamanhoGrano, 10),
         valor_densidad: parseInt(valorDensidad, 10),
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message || 'Densidad guardada correctamente');
       // Opcional: resetear formulario

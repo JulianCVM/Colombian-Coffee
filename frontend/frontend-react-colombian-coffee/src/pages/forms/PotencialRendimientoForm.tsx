@@ -17,11 +17,16 @@ export default function PotencialForm() {
     potencial: '',
     condicion: 0,
   });
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchCondiciones = async () => {
       try {
-        const response = await axios.get<Condicion[]>('http://localhost:8080/condicion');
+        const response = await axios.get<Condicion[]>('http://localhost:8080/condicion', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setCondiciones(response.data);
       } catch (error) {
         console.error('Error al obtener condiciones:', error);
@@ -41,7 +46,11 @@ export default function PotencialForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/potencial', formData);
+      await axios.post('http://localhost:8080/potencial', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       alert('Potencial registrado exitosamente');
     } catch (error) {
       console.error('Error al registrar potencial:', error);

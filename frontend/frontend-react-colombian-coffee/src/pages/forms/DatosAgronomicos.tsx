@@ -16,11 +16,16 @@ const DatosAgronomicosForm = () => {
   const [densidadOptions, setDensidadOptions] = useState<Densidad[]>([]);
 
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchDensidades = async () => {
       try {
-        const res = await axios.get<Densidad[]>('http://localhost:8080/densidad');
+        const res = await axios.get<Densidad[]>('http://localhost:8080/densidad', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setDensidadOptions(res.data);
       } catch (error) {
         console.error('Error al cargar densidades:', error);
@@ -41,6 +46,10 @@ const DatosAgronomicosForm = () => {
         maduracion,
         nutricion,
         densidad_de_siembra: parseInt(densidadSiembra, 10),
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message || 'Datos agronómicos guardados correctamente');
       setTiempoCosecha('');

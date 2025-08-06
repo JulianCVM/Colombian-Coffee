@@ -25,18 +25,43 @@ const CondicionesForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("No se encontró el token. Por favor inicia sesión nuevamente.");
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:8080/condicion', {
-        genetica,
-        clima,
-        suelo,
-        practicas_cultivo: practicasCultivo,
-        temperatura
-      });
-      alert(response.data.message);
-    } catch (error) {
+      const response = await axios.post(
+        'http://localhost:8080/condicion',
+        {
+          genetica: genetica.trim(),
+          clima: clima.trim(),
+          suelo: suelo.trim(),
+          practicas_cultivo: practicasCultivo.trim(),
+          temperatura: temperatura.trim()
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      const message = response.data?.message || "Condiciones registradas exitosamente.";
+      alert(message);
+      navigate("/admin");
+
+    } catch (error: any) {
       console.error('Error al enviar datos:', error);
-      alert('Hubo un error al enviar los datos');
+      if (axios.isAxiosError(error)) {
+        alert(error.response?.data?.message || 'Error en el servidor.');
+      } else {
+        alert('Hubo un error al enviar los datos');
+      }
     }
   };
 
@@ -107,7 +132,6 @@ const CondicionesForm = () => {
           <button type="button" className="cancel-btn" onClick={handleCancel}>
             Cancelar
           </button>
-
           <button type="submit" className="submit-btn">
             💾 Guardar Condiciones
           </button>

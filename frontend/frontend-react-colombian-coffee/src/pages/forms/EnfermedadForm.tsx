@@ -13,6 +13,7 @@ const EnfermedadesForm = () => {
   const handleCancel = () => {
     navigate("/admin");
   };
+  const token = localStorage.getItem("token");
 
   const capitalizar = (texto: string) => {
     return texto
@@ -29,6 +30,10 @@ const EnfermedadesForm = () => {
         efectos,
         gravedad,
         tratamiento
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       alert(response.data.message);
     } catch (error) {
