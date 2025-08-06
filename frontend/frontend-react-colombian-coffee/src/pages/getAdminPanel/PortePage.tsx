@@ -16,8 +16,14 @@ export default function PorteCard() {
     manejo_cultivo: '',
   });
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    fetch('http://localhost:8080/porte')
+    fetch('http://localhost:8080/porte', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setPortes(data))
       .catch((error) =>
@@ -29,6 +35,9 @@ export default function PorteCard() {
     try {
       const res = await fetch(`http://localhost:8080/porte/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (res.ok) {
@@ -51,7 +60,10 @@ export default function PorteCard() {
     try {
       const res = await fetch(`http://localhost:8080/porte/${formData.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+          },
         body: JSON.stringify(formData),
       });
 

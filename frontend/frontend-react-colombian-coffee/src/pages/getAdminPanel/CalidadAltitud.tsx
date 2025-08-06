@@ -19,11 +19,16 @@ export default function CalidadAltitud() {
     setFormData(calidad);
   };
   
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchCalidades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/calidadAlt');
+        const response = await axios.get('http://localhost:8080/calidadAlt', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setCalidades(response.data);
       } catch (error) {
         console.error('Error al traer calidad_altitud:', error);
@@ -35,7 +40,11 @@ export default function CalidadAltitud() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/calidadAlt/${id}`);
+      await axios.delete(`http://localhost:8080/calidadAlt/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setCalidades(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -45,7 +54,11 @@ export default function CalidadAltitud() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/calidadAlt/${formData.id}`, formData);
+      await axios.put(`http://localhost:8080/calidadAlt/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setCalidades(prev =>
         prev.map(item => item.id === formData.id ? formData : item)
       );

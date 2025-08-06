@@ -23,9 +23,15 @@ export default function HistoriaLinaje() {
     fetchHistoriaLinaje();
   }, []);
 
+  const token = localStorage.getItem("token");
+
   const fetchHistoriaLinaje = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/HistoriaLinaje'); // Ya ajustada
+      const response = await axios.get('http://localhost:8080/HistoriaLinaje', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }); // Ya ajustada
       setHistoriaLinajes(response.data);
     } catch (error) {
       console.error('Error al traer historia_linaje:', error);
@@ -34,7 +40,11 @@ export default function HistoriaLinaje() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:8080/HistoriaLinaje/${id}`);
+      await axios.delete(`http://localhost:8080/HistoriaLinaje/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setHistoriaLinajes(prev => prev.filter(item => item.id !== id));
     } catch (error) {
       console.error('Error al eliminar:', error);
@@ -49,7 +59,11 @@ export default function HistoriaLinaje() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/HistoriaLinaje/${formData.id}`, formData);
+      await axios.put(`http://localhost:8080/HistoriaLinaje/${formData.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setHistoriaLinajes(prev =>
         prev.map(item => (item.id === formData.id ? formData : item))
       );
