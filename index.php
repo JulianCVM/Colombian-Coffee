@@ -41,6 +41,7 @@ try {
     (require_once __DIR__ . '/src/Modules/CalidadAltitud/routes/CalidadAltitud.php')($app);
     (require_once __DIR__ . '/src/Modules/CalidadGrano/routes/CalidadGrano.php')($app);
     (require_once __DIR__ . '/src/Modules/User/routes/user.php')($app);
+    (require_once __DIR__ . '/src/Modules/User/routes/login.php')($app);
 
     // Configurar manejo de errores
     // $errorHandler = $app->addErrorMiddleware(true, true, true);
