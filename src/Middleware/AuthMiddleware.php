@@ -2,38 +2,35 @@
 
 namespace App\Middleware;
 
-use App\Modules\User\Domain\Model\User;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Slim\Exception\HttpUnauthorizedException;
-use Slim\Psr7\Response as SlimResponse;
+use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+
 
 class AuthMiddleware
 {
-    // $repo = new AuthMiddleware() <- ()
-    //    public function __construct() {}
-    public function __invoke(Request $request, Handler $handler): Response
+    public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        $auth = $request->getHeaderLine('Authorization'); // Basic YJhkjh83289Hs9aP9S8HDUn8fh94w...
+        $authHeader = $request->getHeaderLine('Authorization');
 
-        if (!$auth || !str_starts_with($auth, 'Basic ')) {
-            throw new HttpUnauthorizedException($request);
+        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+            throw new HttpUnauthorizedException($request, 'Token no proporcionado');
         }
 
-        $decoded = base64_decode(substr($auth, 6));
-        [$email, $password] = explode(':', $decoded); // asd@gmail.com:12345
+        $token = substr($authHeader, 7);
 
-        // Cambiar al repositorio encargado......
-        $user = User::where('email', $email)->first();
+        try {
+            $decoded = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
 
-        // Validaos la contraseña
-        if (!$user || !password_verify($password, $user->password)) {
-            throw new HttpUnauthorizedException($request);
+            // Puedes agregar los datos del usuario al request para usar más adelante
+            $request = $request->withAttribute('user', $decoded);
+
+            return $handler->handle($request);
+        } catch (\Exception $e) {
+            throw new HttpUnauthorizedException($request, 'Token inválido o expirado');
         }
-
-        $request = $request->withAttribute('user', $user);
-
-        return $handler->handle($request);
     }
 }
