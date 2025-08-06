@@ -3,7 +3,7 @@ import type { Data } from "./DataInterface";
 const API_COLOMBIAN_COFFEE = "http://localhost:8080";
 
 export default function getDataList(): Promise<Data> {
-  const fullUrl = `${API_COLOMBIAN_COFFEE}/variedad/all`;
+  const fullUrl = `${API_COLOMBIAN_COFFEE}/variedadGlobal/all`;
 
   const token = localStorage.getItem("token");
 

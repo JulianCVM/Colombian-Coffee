@@ -27,6 +27,7 @@ try {
     // Cargar middlewares y rutas
     (require_once __DIR__ . '/public/index.php')($app);
     (require_once __DIR__ . '/src/Modules/Variedad/routes/variedad.php')($app);
+    (require_once __DIR__ . '/src/Modules/Variedad/routes/variedadGlobal.php')($app);
     (require_once __DIR__ . '/src/Modules/Imagenes/routes/imagenes.php')($app);
     (require_once __DIR__ . '/src/Modules/HistoriaLinaje/routes/HistoriaLinaje.php')($app);
     (require_once __DIR__ . '/src/Modules/Condicion/routes/condicion.php')($app);

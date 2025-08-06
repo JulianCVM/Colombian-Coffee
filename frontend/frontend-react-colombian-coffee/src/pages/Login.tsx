@@ -78,7 +78,15 @@ function Login() {
   
           console.log("Usuario autenticado:", data.user);
   
-          window.location.href = "/home";
+          const rol = data.user?.rol;
+          console.log(rol);
+          
+
+          if (rol == "admin") {
+            window.location.href = "/admin";
+          } else {
+            window.location.href = "/home";
+          }
   
         } else {
           setError(data.message || "Credenciales inválidas");
