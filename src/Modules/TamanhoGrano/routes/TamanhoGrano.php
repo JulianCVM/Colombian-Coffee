@@ -1,5 +1,7 @@
 <?php
 
+use App\Middleware\AuthMiddleware;
+use App\Middleware\RoleMiddleware;
 use App\Modules\TamanhoGrano\Controllers\TamanhoGranoController;
 use Slim\App;
 
@@ -10,5 +12,6 @@ return function (App $app) {
         $group->post('', [TamanhoGranoController::class, 'store']);
         $group->put('/{id}', [TamanhoGranoController::class, 'update']);
         $group->delete('/{id}', [TamanhoGranoController::class, 'destroy']);
-    });
+    })->add(new RoleMiddleware('admin'))
+        ->add(new AuthMiddleware());
 };
