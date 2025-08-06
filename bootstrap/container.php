@@ -30,6 +30,8 @@ use App\Modules\TamanhoGrano\Domain\Repositories\TamanhoGranoRepositoryInterface
 use App\Modules\TamanhoGrano\Repositories\EloquentTamanhoGranoRepository;
 use App\Modules\Ubicacion\Domain\Repositories\UbicacionRepositoryInterface;
 use App\Modules\Ubicacion\Repositories\EloquentUbicacionRepository;
+use App\Modules\User\Domain\Repositories\UserRepositoryInterface;
+use App\Modules\User\Infraestructure\Repositories\EloquentUserRepository;
 use App\Modules\Variedad\Domain\Repositories\VariedadRepositoryInterface;
 use App\Modules\Variedad\Infraestructure\Repositories\EloquentVariedadRepository;
 use App\Modules\VariedadGlobal\Domain\Repositories\VariedadGlobalRepositoryInterface;
@@ -96,6 +98,11 @@ $container->set(CalidadAltitudRepositoryInterface::class, function () {
 $container->set(CalidadGranoRepositoryInterface::class, function () {
     return new EloquentCalidadGranoRepository;
 });
+
+$container->set(UserRepositoryInterface::class, function () {
+    return new EloquentUserRepository;
+});
+
 
 // Handler
 
