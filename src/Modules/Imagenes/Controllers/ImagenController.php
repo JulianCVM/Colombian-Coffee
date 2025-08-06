@@ -1,23 +1,50 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Modules\Imagenes\Controllers;
 
-use App\Domain\Repositories\ImagenRepositoryInterface;
-use App\DTOs\ImagenDTO;
-use App\UseCases\GetImagenById;
+use App\Modules\Imagenes\Domain\Repositories\ImagenRepositoryInterface;
+use App\Modules\Imagenes\DTOs\ImagenDTO;
+use App\Modules\Imagenes\UseCases\CreateImagen;
+use App\Modules\Imagenes\UseCases\GetAllImagen;
+use App\Modules\Imagenes\UseCases\UpdateImagen;
+use App\Modules\TamanhoGrano\UseCases\DeleteTamanhoGrano;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-// Clase controller donde se van a manejar todas las funcionalidades del sistema recibiendo y mandando las respuestas y solicitudes
 
 class ImagenController
 {
-    // Se le inyecta la interfaz del repository de variedad con la cual vamos a hacer llamado a las funciones de logica que vamos a implementar en este controller
     public function __construct(private ImagenRepositoryInterface $repo) {}
 
 
-    // En la funcion obtenerImagen se hace llamado al caso de uso GetImagenById el cual hace uso de la funcion getById() de la interfaz la cual tiene como logica definida traer la imagen en especifico asociada a este id
-    public function obtenerImagen(Request $request, Response $response, array $args): Response
+    public function index(Request $request, Response $response): Response
+    {
+        $useCase = new GetAllImagen($this->repo);
+        $result = $useCase->execute();
+        $response->getBody()->write(json_encode($result));
+        return $response;
+    }
+
+    public function store(Request $request, Response $response): Response
+    {
+        $data = $request->getParsedBody();
+
+        $dto = ImagenDTO::fromArrayMapper($data);
+
+        $useCase = new CreateImagen($this->repo);
+        $result = $useCase->execute($dto);
+        if (!$result) {
+            $response->getBody()->write(json_encode([
+                "error" => "No se pudo crear la imagen",
+            ]));
+            return $response->withStatus(400);
+        }
+        $response->getBody()->write(json_encode($result));
+        return $response->withStatus(201);
+    }
+
+
+    public function update(Request $request, Response $response, array $args): Response
     {
         $id = isset($args['id']) ? (int)$args['id'] : null;
 
@@ -26,10 +53,34 @@ class ImagenController
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
-        $useCase = new GetImagenById($this->repo);
-        $imagen = $useCase->execute($id);
+        $data = $request->getParsedBody();
 
-        $response->getBody()->write(json_encode($imagen));
-        return $response->withHeader('Content-Type', 'application/json');
+        $dto = ImagenDTO::fromArrayMapper($data);
+
+        $useCase = new UpdateImagen($this->repo);
+        $success = $useCase->execute($id, $dto);
+        if (!$success) {
+            $response->getBody()->write(json_encode([
+                "error" => "No se pudo actualizar la imagen, imagen no registrada en la plataforma",
+            ]));
+            return $response->withStatus(404);
+        }
+        return $response->withStatus(200);
+    }
+
+
+    public function destroy(Request $request, Response $response, array $args): Response
+    {
+        $id = isset($args['id']) ? (int)$args['id'] : null;
+
+        if ($id === null) {
+            $response->getBody()->write(json_encode(['error' => 'ID no proporcionado']));
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
+        }
+
+        $useCase = new DeleteTamanhoGrano($this->repo);
+        $result = $useCase->execute($id);
+
+        return $response->withStatus(200);
     }
 }
